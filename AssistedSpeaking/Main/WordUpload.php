@@ -1,6 +1,5 @@
 <?php
-			
-	$con=mysqli_connect("188.121.44.165","AssistedSpeak","a55!sT3D","AssistedSpeak");
+
 	// Check connection
 	if (!$con) {
     	die("Connection failed: " . mysqli_connect_error());
