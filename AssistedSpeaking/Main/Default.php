@@ -1,35 +1,37 @@
 <?php
 	error_reporting(E_ERROR); //Turn off PHP error reporting
 	
-	
-	
 ?>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <link href="../App_Themes/StyleSheet.css" rel="stylesheet" />
-    <script src="../Scripts/ResponsiveVoice.js"></script>
-    <script src="../Scripts/AngularJS.js"></script>
+    <link href="../App_Themes/StyleSheet.css" rel="stylesheet" /> <!-- Custom Style Sheet-->
+    <script src="../Scripts/ResponsiveVoice.js"></script> <!-- Text to Speech JS-->
+    <script src="../Scripts/AngularJS.js"></script> <!-- AngularJS-->
     <title>Assisted Speaking</title>
     
     <script>
-    //Config Variables
-    	
+//--- Standard JS ---  	
+    	//Displays sub menus of words
     	function pageHide($pageNumber) {
     		document.getElementById("wordArea" + $pageNumber).style.display = "none";
     		document.getElementById("wordArea1").style.display = "block";
     	}
     	
+    	//Refresh the page reloading the words
     	function refreshPage() {
     		location.reload();
 		}
 
+//--- AngularJS ---
+		//AngularJS module creation
 		var app = angular.module("myApp", []);
 
+		//Angular Controller
 		app.controller('myCtrl', function ($scope) {
-		//PAGE LOAD
-		//---------
-			//Config Variables - AngualrJS
+		
+//--- Page Set Up ---
+			//Bind talk settings to drop down
 			$scope.speechSettings = [
 				{display : "Push to Talk", setting : "pushTalk"},
 				{display : "Select to Talk", setting : "selectTalk"},
@@ -46,132 +48,178 @@
 			$scope.choice1 = "";
 			$scope.choice1Data = "";
 
-			//Load the app functions
-			
+//--- Load words into AngularJS through PHP ---
 			<?php 
+					//Variable to keep track of blank sub page
+					$pageUse = 2;
+					
+					//Selects words that are to be displayed on the main page
 					$selectMainWords="SELECT WordID, PhraseName, Phrase FROM Words WHERE GroupID=0";
 					$mainWordsResults = mysqli_query($con, $selectMainWords);
 					
-					$pageUse = 2;
+					//Loop variable for button use
 					$i = 1;
+					
+					//Check for returned values
 					if (mysqli_num_rows($mainWordsResults) > 0) 
 					{
+						//Loop through returned rows
 						while($row = mysqli_fetch_assoc($mainWordsResults)) 
 						{
+							//Insert currently selected into variables
 							$phraseName = $row["PhraseName"];
 							$mainPhrase = $row["Phrase"];
 							
+							//Print select variables into AngularJS, based on button position $i
 							print '$scope.page1'.$i.' = "'.$phraseName.'";';
 	 						print '$scope.page1Data'.$i.' = "'.$mainPhrase.'";';
+	 						
+	 						//Increment main page button used
 	 						$i++;
 						}	
 					}
 					
+					//Select all word groups
 					$selectGroups="SELECT GroupID, GroupName FROM WordGroup";
 					$groupResults = mysqli_query($con, $selectGroups);
 					
+					//Check for returned values
 					if (mysqli_num_rows($groupResults) > 0) 
 					{
+						//Loop through returned rows
 						while($row = mysqli_fetch_assoc($groupResults)) 
 						{
+							//Insert currently selected into variables
 							$groupID = $row["GroupID"];
 							$groupName = $row["GroupName"];
 		
+							//Print select variables into AngularJS, based on button position $i
 	 						print '$scope.page1'.$i.' = "'.$groupName.'";';
 	 						print '$scope.page1Data'.$i.' = "NewPage '.$pageUse.'";';
 	 						
+	 						//Select words associated with the currently selected group
 	 						$selectWords="SELECT WordID, GroupID, PhraseName, Phrase FROM Words WHERE GroupID=".$groupID;
 	 						$wordResults = mysqli_query($con, $selectWords);
 	 						
+	 						//Check for returned values
 	 						if (mysqli_num_rows($wordResults) > 0)
 	 						{	
+	 							//Loop variable for sub menu button use
 	 							$j = 1;
+	 							
+	 							//Loop through returned rows
 	 							while($row = mysqli_fetch_assoc($wordResults))
 	 							{
+	 								//Insert currently selected into variables
 	 								$groupID = $row["GroupID"];
 	 								$phraseName = $row["PhraseName"];
 									$phrase = $row["Phrase"];
 									
+									//Print select variables into AngualarJS, based on sub menu button position $j
 									print '$scope.page'.($pageUse).''.$j.' =  "'.$phraseName.'";';
 									print '$scope.page'.($pageUse).'Data'.$j.'= "'.$phrase.'";';
 									
+									//Increment button used
 									$j++;
 	 							}
+	 							//Increment page used
 	 							$pageUse++;
 	 						}
+	 						//Increment main page button postion
 	 						$i++;
  						}			
 					}
+					//Close SQL connection once words are loaded
 					mysqli_close($con);
 			?>
-			
+			//Hide loading screen
 			document.getElementById("loading").style.display = "none";
-		//-------------
-		//PAGE LOAD END
-			
-            //LOAD SPEECH BAR Function
-            //------------------------
+
+//--- App buttons on click ---
 			$scope.loadWords = function (value) {
+				// Gather value of selected button
                 var selectedValue = value.target.attributes.value.value;
                 var selectedData = value.target.attributes.data.value;
+                
+                //String will be split into an array, only applicable for group linked buttons
                 var selectedDataArray = selectedData.split(" ");
                 
+                //Check to see if the button is linked to a new page
                 if (selectedDataArray[0] != "NewPage")
                 {
+                	//Check the speech settings is select to talk
                 	if ($scope.speechSetting.setting == "selectTalk")
                 	{
+                		//Load the selected word into the speech bar
                 		$scope.choice1 = selectedValue;
                  	  	$scope.choice1Data = selectedData;
-                   	
+                   		
+                   		//Call function to read the speech bar
                  	  	$scope.DataWords();
-              		 }
-               	
-               		if ($scope.speechSetting.setting == "pushTalk" || $scope.speechSetting.setting == "pushSelectTalk")
+              		}
+              		//Check the speech settings are push to talk or push to talk and select to talk
+               		else if ($scope.speechSetting.setting == "pushTalk" || $scope.speechSetting.setting == "pushSelectTalk")
                 	{     	
+                		//Check the speech settings are push to talk and select to talk
                 		if ($scope.speechSetting.setting == "pushSelectTalk")
                 		{
+                			//Read the currently selected word
                 			responsiveVoice.speak(selectedData);
                 		}
                 	
+                		//Check if there isnt a value in speech bar section one
                 		if (!$scope.choice1)
                 		{
+                			//Load the selected value into the speech bar section one
                    			$scope.choice1 = selectedValue;
                    			$scope.choice1Data = selectedData;
                 		} 
+                		//Check if there isnt a value in speech bar section two
                 		else if (!$scope.choice2)
                 		{
+                			//Load the selected value into the speech bar section two
                     		$scope.choice2 = selectedValue;
                     		$scope.choice2Data = selectedData;
                 		} 
+                		//Check if there isnt a value in speech bar section three
                 		else if (!$scope.choice3)
                	 		{
+               	 			//Load the selected value into the speech bar section three
                	    	 	$scope.choice3 = selectedValue;
                 		    $scope.choice3Data = selectedData;
                 		}
+                		//Check if there isnt a value in speech bar section four
                 		else if (!$scope.choiceFour)
                 		{
-                  		  $scope.choice4 = selectedValue;
-                  		  $scope.choice4Data = selectedData;
+                			//Load the selected value into the speech bar section four
+                  		 	$scope.choice4 = selectedValue;
+                  		 	$scope.choice4Data = selectedData;
                 		}
                 	}
                 }
                 else
                 {
-                	var $int = parseInt(selectedDataArray[1]);
-                	var $display = "wordArea" + $int;
+                	//Get the page number of the selected button
+                	var $pageUse = parseInt(selectedDataArray[1]);
+                	
+                	//Merge the number with the ID of the sub menu
+                	var $display = "wordArea" + $pageUse;
+                	
+                	//Hide the main word area
                 	document.getElementById("wordArea1").style.display = "none";
+                	
+                	//Display the selected word area
                 	document.getElementById($display).style.display = "block";
                 }
             }
 
-			//SPEAK Function
-			//--------------
+// --- Read speech bar ---
             $scope.DataWords = function () {
+            	//Read all the values in the speech bar
                 responsiveVoice.speak($scope.choice1Data + " " + $scope.choice2Data + " " + $scope.choice3Data + " " + $scope.choice4Data);
             }
 			
-			//CLEAR SPEACH BAR Function
-			//-------------------------
+// -- Clear speech bar ---
             $scope.deleteWords = function () {
                     $scope.choice4 = "";
                     $scope.choice4Data = "";
@@ -183,7 +231,6 @@
                     $scope.choice1Data = "";
             }           
         });
-	//End Button Configuration
 	</script>
 </head>
 
