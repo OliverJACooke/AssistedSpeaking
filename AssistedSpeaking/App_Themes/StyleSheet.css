@@ -5,9 +5,14 @@
     font-size:1vw;
 }
 
+a {
+	cursor:pointer;
+}
+
 img {
 	max-width:70%;
-	max-height:70%
+	max-height:70%;
+	pointer-events:none;
 }
 
 form, table, tr, th, td{
@@ -93,7 +98,11 @@ form, table, tr, th, td{
     height:100%;
     width:100%;
     font-size:100%;
-    background-color:lightgray;
+}
+
+.wordImageButton {
+	height:100%;
+	width:100%;
 }
 
 td {
