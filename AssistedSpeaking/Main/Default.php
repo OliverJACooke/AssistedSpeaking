@@ -1,28 +1,25 @@
 <?php
 	error_reporting(E_ERROR); //Turn off PHP error reporting
-	
+	$con = mysqli_connect("188.121.44.165","AssistedSpeak","a55!sT3D","AssistedSpeak"); //Connection string
 ?>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html manifest="../cache.manifest">
 <head>
     <link href="../App_Themes/StyleSheet.css" rel="stylesheet" /> <!-- Custom Style Sheet-->
     <script src="../Scripts/ResponsiveVoice.js"></script> <!-- Text to Speech JS-->
     <script src="../Scripts/AngularJS.js"></script> <!-- AngularJS-->
+    <script src="../Scripts/jquery-2.2.2.js"></script> <!-- JQuery-->
     <title>Assisted Speaking</title>
     
     <script>
 //--- Standard JS ---  	
 		<?php
-			$buttonArray = array();
-			$subMenuArray = array();
-			$subMenuWordTotal = array();
+			$mainMenuArrayImage = array();
+			$subMenuArrayImage = array();
+			$subMenuWordImageTotal = array();
+			$totalImageButtons = array();
+			$mainMenuWordImageTotal = 0;
 		?>
-
-    	//Displays sub menus of words
-    	function pageHide($pageNumber) {
-    		document.getElementById("wordArea" + $pageNumber).style.display = "none";
-    		document.getElementById("wordArea1").style.display = "block";
-    	}
     	
     	//Refresh the page reloading the words
     	function refreshPage() {
@@ -34,7 +31,7 @@
 		//AngularJS module creation
 		var app = angular.module("myApp", []);
 		//Angular Controller
-		app.controller('myCtrl', function ($scope) {
+		app.controller('myCtrl', function ($scope) {	
 		
 //--- Page Set Up ---
 			//Bind talk settings to drop down
@@ -65,11 +62,12 @@
 					$pageUse = 2;
 					
 					//Selects words that are to be displayed on the main page
-					$selectMainWords="SELECT WordID, PhraseName, Phrase FROM Words WHERE GroupID=0";
+					$selectMainWords="SELECT WordID, PhraseName, Phrase, Image FROM Words WHERE GroupID=0";
 					$mainWordsResults = mysqli_query($con, $selectMainWords);
 					
 					//Loop variable for button use
 					$i = 1;
+					$k = 0;
 					$m = 0;
 					$buttonNum = 0;
 					$buttonSubNum = 0;
@@ -80,25 +78,31 @@
 						//Loop through returned rows
 						while($row = mysqli_fetch_assoc($mainWordsResults)) 
 						{
+							$k++;
 							//Insert currently selected into variables
 							$phraseName = $row["PhraseName"];
 							$mainPhrase = $row["Phrase"];
+							$phraseImage = $row["Image"];
 							
 							//Print select variables into AngularJS, based on button position $i
 							print '$scope.page1'.$i.' = "'.$phraseName.'";';
 	 						print '$scope.page1Data'.$i.' = "'.$mainPhrase.'";';
 	 						
-	 						$buttonArray[$buttonNum] = "<input type='button' class='wordButton' ng-click='loadWords(\$event)' value='{{page1".$i."}}' data='{{page1Data".$i."}}' />";
+	 						print '$scope.page1Image'.$i.' = "'.$phraseImage.'";';
 	 						
+	 						$mainMenuArrayImage[$buttonNum] = "<td><div id='cell".$k."' class='wordImageButton' ng-click='loadWords(\$event)' value='{{page1".$i."}}' data='{{page1Data".$i."}}'> <img src='{{page1Image".$i."}}' alt='{{page1".$i."}}'/> <h3>{{page1".$i."}}</h3> </div></td>";
+	 						
+	 						$totalImageButtons[$i] = $i;
 	 						//Increment main page button used
 	 						$i++;
+	 						
 	 						$buttonNum++;
 						}	
 						$phraseNo = $i;
 					}
 					
 					//Select all word groups
-					$selectGroups="SELECT GroupID, GroupName FROM WordGroup";
+					$selectGroups="SELECT GroupID, GroupName, Image FROM WordGroup";
 					$groupResults = mysqli_query($con, $selectGroups);
 					
 					//Check for returned values
@@ -107,18 +111,25 @@
 						//Loop through returned rows
 						while($row = mysqli_fetch_assoc($groupResults)) 
 						{
+							$k++;
 							//Insert currently selected into variables
 							$groupID = $row["GroupID"];
 							$groupName = $row["GroupName"];
+		
+							$groupImage = $row["Image"];
 		
 							//Print select variables into AngularJS, based on button position $i
 	 						print '$scope.page1'.$i.' = "'.$groupName.'";';
 	 						print '$scope.page1Data'.$i.' = "NewPage '.$pageUse.'";';
 	 						
-	 						$buttonArray[$buttonNum] = "<input type='button' class='wordButton' ng-click='loadWords(\$event)' value='{{page1".$i."}}' data='{{page1Data".$i."}}' />";
+	 						print '$scope.page1Image'.$i.' = "'.$groupImage.'";';
 	 						
+	 						$mainMenuArrayImage[$buttonNum] = "<td><div id='cell".$k."' class='wordImageButton' ng-click='loadWords(\$event)' value='{{page1".$i."}}' data='{{page1Data".$i."}}' style='border:2px solid black;'><img src='{{page1Image".$i."}}' alt='{{page1".$i."}}'/> <h3>{{page1".$i."}}</h3></div></td>";
+	 						
+	 						$totalImageButtons[$i] = $i;
+	 						//
 	 						//Select words associated with the currently selected group
-	 						$selectWords="SELECT WordID, GroupID, PhraseName, Phrase FROM Words WHERE GroupID=".$groupID;
+	 						$selectWords="SELECT WordID, GroupID, PhraseName, Phrase, Image FROM Words WHERE GroupID=".$groupID;
 	 						$wordResults = mysqli_query($con, $selectWords);
 	 						
 	 						//Check for returned values
@@ -130,31 +141,43 @@
 	 							//Loop through returned rows
 	 							while($row = mysqli_fetch_assoc($wordResults))
 	 							{
+	 								$k++;
 	 								//Insert currently selected into variables
 	 								$groupID = $row["GroupID"];
 	 								$phraseName = $row["PhraseName"];
 									$phrase = $row["Phrase"];
 									
+									$phraseImage = $row["Image"];
+									
 									//Print select variables into AngualarJS, based on sub menu button position $j
 									print '$scope.page'.$pageUse.''.$j.' =  "'.$phraseName.'";';
 									print '$scope.page'.$pageUse.'Data'.$j.'= "'.$phrase.'";';
 									
-									$subMenuArray[$buttonSubNum] = "<input type='button' class='wordButton' ng-click='loadWords(\$event)' value='{{page".$pageUse."".$j."}}' data='{{page".$pageUse."Data".$j."}}' />";
-											
+									print '$scope.page'.$pageUse.'Image'.$j.' = "'.$phraseImage.'";';
+									
+									//$subMenuArray[$buttonSubNum] = "<input type='button' class='wordButton' ng-click='loadWords(\$event)' value='{{page".$pageUse."".$j."}}' data='{{page".$pageUse."Data".$j."}}' />";
+										
+									$subMenuArrayImage[$buttonSubNum] = "<td><div id='cell".$k."' class='wordImageButton' ng-click='loadWords(\$event)' value='{{page".$pageUse."".$j."}}' data='{{page".$pageUse."Data".$j."}}'> <img src='{{page".$pageUse."Image".$j."}}' alt='{{page".$pageUse."".$j."}}'/> <h3>{{page".$pageUse."".$j."}}</h3> </div></td>";	
+									
+									
+	 								
 									//Increment button used
 									$j++;
 									$buttonSubNum++;
 	 							}
 	 							//Increment page used
-	 							$subMenuWordTotal[$m] = $j;
+	 							$subMenuWordImageTotal[$m] = $j;
+	 							$totalImageButtons[$i] = $totalImageButtons[($i-1)] + $j;
 	 							$m++;
 	 							$pageUse++;
 	 						}
 	 						//Increment main page button postion
 	 						$i++;
 	 						$buttonNum++;
+	 						
  						}			
 					}
+					$mainMenuWordImageTotal = $i;
 					//Close SQL connection once words are loaded
 					mysqli_close($con);
 			?>
@@ -167,6 +190,7 @@
 				// Gather value of selected button
                 var selectedValue = value.target.attributes.value.value;
                 var selectedData = value.target.attributes.data.value;
+                var selectedId = value.target.attributes.data.value
                 
                 //String will be split into an array, only applicable for group linked buttons
                 var selectedDataArray = selectedData.split(" ");
@@ -237,13 +261,34 @@
                 	
                 	//Display the selected word area
                 	document.getElementById($display).style.display = "block";
-                }
+                }  
             }
 
 // --- Read speech bar ---
             $scope.DataWords = function () {
             	//Read all the values in the speech bar
-                responsiveVoice.speak($scope.choice1Data + " " + $scope.choice2Data + " " + $scope.choice3Data + " " + $scope.choice4Data);
+            	word1 = $scope.choice1Data;
+            	word2 = $scope.choice2Data;
+            	word3 = $scope.choice3Data;
+            	word4 = $scope.choice4Data;
+            	
+            	if (word1 == null) {
+            		word1 = " ";
+            	}
+            	
+            	if (word2 == null) {
+            		word2 = " ";
+            	}
+            	
+            	if (word3 == null) {
+            		word3 = " ";
+            	}
+            	
+            	if (word4 == null) {
+            		word4 = " ";
+            	}
+            	
+                responsiveVoice.speak(word1 + " " + word2 + " " + word3 + " " + word4);
             }        
         });
         
@@ -303,18 +348,18 @@
             </table>
             <div class="wordAreaContainer">
             	<div ID="wordArea1" style="display:block">
-
             		<?php
-						$cellNo = count($buttonArray);
+						//$cellNo = count($buttonArray);
+						$cellNo = count($mainMenuArrayImage);
 						$i = 0;
+
+						//print_r(array_values($subMenuWordImageTotal));
 
 						print '<table class="wordAreaTable">';
 						print 	'<tr>';
 							while ($i < $cellNo) {
-								print '<td>';
-								print 	$buttonArray[$i];
-								print '</td>';
-								
+								print $mainMenuArrayImage[$i];
+							
 								if (($i != 0) && ($i % 5 == 0)) {
 									print '</tr>';
 									print '<tr>';
@@ -326,8 +371,8 @@
 						print 	'</table>';
 						print '</div>';
 						
-						$tableNo = count($subMenuWordTotal);
-						$subCellNo = count($subMenuArray);
+						$tableNo = count($subMenuWordImageTotal);
+						$subCellNo = count($subMenuArrayImage);
 						$table = 2;
 						$rows = 1;
 						$j = 0;
@@ -339,10 +384,8 @@
 								print 		'<tr>';
 								
 								$k = 1;
-								while ($k < $subMenuWordTotal[$j]) {
-									print '<td>';
-									print 	$subMenuArray[$l];
-									print '</td>';
+								while ($k < $subMenuWordImageTotal[$j]) {
+									print 	$subMenuArrayImage[$l];
 									
 									if ($k % 6 == 0) {
 										print '</tr>';
@@ -354,9 +397,9 @@
 									$l++;
 								}
 								
-								print 			'<td>';
-								print				'<input type="button" class="wordButton" value="Back" onclick="pageHide('.($j+2).')" />';
-								print			'</td>';
+								//print 			'<td>';
+								//print				'<input type="button" class="wordButton" value="Back" onclick="pageHide('.($j+2).')" />';
+								//print			'</td>';
 								print		'</tr>';
 								print 	'</table>';
 								print '</div>';
@@ -367,5 +410,201 @@
             </div>
         </form>
     </div>
+<script>
+	//--- Table 1 Point Scanning ---
+	var keyPressed = false;
+	var cellCount = <?php print (array_sum($subMenuWordImageTotal) + $phraseNo); ?>;
+	var mainButtons = <?php print count($mainMenuArrayImage);?>;
+	var bottomOfMenu = 0;
+	var topOfMenu = 0;
+	var mainMenuIDs = [];
+	var phraseNo = <?php print $phraseNo; ?>;
+	
+	function selectedSubMenu(mainSelectedSubMenu){
+	<?php 
+		$i = 1;
+		$j = 0;
+		$runningTotal = 0;
+		$runningBottom = 0;
+		$mainButtons = $phraseNo;
+		$mainMenuID = "";
+		
+		
+		
+		print "switch(mainSelectedSubMenu) { ";
+		while ($i <= count($mainMenuArrayImage) + 1) {
+			if ($mainButtons == 0) {
+				$runningTopTotal = $runningTopTotal + $subMenuWordImageTotal[$j];
+				$runningBottomTotal = $runningBottomTotal + $subMenuWordImageTotal[$j - 1];
+				
+				
+				print "case ".$i.": ";
+				print "bottomOfMenu = ".$runningBottomTotal.";";
+				print "topOfMenu = ".$runningTopTotal."; ";
+				print "break; ";
+				$j++;
+			}
+			else {
+				$runningTopTotal++;
+				$runningBottomTotal++;
+				
+				print "case ".$i.": "; 
+				print "bottomOfMenu = ".$runningBottomTotal.";";
+				print "topOfMenu = ".$runningTopTotal."; ";
+				print "break; ";
+				
+				$mainButtons--;
+			}
+			
+			$mainMenuID[$i] = $runningTopTotal;
+			$i++;
+			
+			
+		}
+		print "} ";
+	?>	
+	
+	}
+	<?php	
+		$k = 1;
+		
+		while($k <= count($mainMenuID)) {
+			print "mainMenuIDs[".$k."] = ".$mainMenuID[$k]."; ";
+			$k++;
+		}
+	?>	
+	
+	document.body.onkeyup = function(e){
+    	if(e.keyCode == 32) {
+    		keyPressed = true;
+		}
+    	else {
+      		keyPressed = false;
+      	}   
+    }
+     
+    var k = 1;
+	var l = 0;  
+	var cell = "";
+	var previousCell = "";
+    var subCell = "";
+    var subCellPreviouse ="";
+    var mainMenuLength = mainMenuIDs.length;
+    
+	function mainLoop () {           
+   		setTimeout(function () {
+   			cell = "cell" + mainMenuIDs[k];	
+      		previousCell = "cell" + mainMenuIDs[l];
+      		
+   			if (keyPressed == false) {		
+   				document.getElementById(cell).style.backgroundColor = "blue";
+   			
+   				
+   			
+   				if (l == mainMenuLength - 2) {
+      				l = 0;
+      			}
+				
+				if (l != 0) { 
+		 			document.getElementById(previousCell).style.backgroundColor = "white"; 
+				} 			
+  				
+  				k++;    
+      			l++; 
+      			           
+      		    if (k == mainMenuLength - 1) {
+      				setTimeout(function () {   
+						document.getElementById(cell).style.backgroundColor = "white";
+					}, 1000)	
+      				k = 1;
+      				l = mainMenuLength - 2;
+      			}
+      			
+     			mainLoop();            
+			}
+			else {
+    			document.getElementById(previousCell).style.backgroundColor = "white";
+    			
+     			document.getElementById(previousCell).click();
+     			
+     			keyPressed = false;
+      				
+      			if (previousCell == "cell" + mainMenuIDs[mainMenuLength - 2]) {
+      				k = mainMenuLength - 1;
+      			}	
+      			
+     			if (k <= phraseNo) {
+     				k = 1;
+      				l = 0; 
+      				
+     				mainLoop();
+     			}
+     			else {
+     				
+     				selectedSubMenu(k);
+     				pageNo = k;
+     			
+     				i = bottomOfMenu + 1;
+					j = bottomOfMenu + 0; 
+					
+					subLoop();
+					mainLoop();
+					
+					function subLoop () { 
+      					setTimeout(function () {
+   							subCell = "cell" + i;     
+      						subPreviousCell = "cell" + j;
+      						k = 1;
+      						l = 0; 
+      						
+   							if (keyPressed == false) {				
+								document.getElementById(subCell).style.backgroundColor = "blue";  
+					
+								if (j != 0) { 
+		 							document.getElementById(subPreviousCell).style.backgroundColor = "white"; 
+								} 			
+  				
+  								i++;    
+      							j++;            
+      		     	   
+      							if (i == (topOfMenu + 1)) {
+      								setTimeout(function () {  
+											document.getElementById(subCell).style.backgroundColor = "white"; 
+      								}, 1000)
+      								i = bottomOfMenu + 1;
+      								j = bottomOfMenu + 0; 
+      							}
+      			
+     							subLoop();            
+							}
+							else {
+    							document.getElementById(subPreviousCell).style.backgroundColor = "white"; 
+     							document.getElementById(subPreviousCell).click();
+      				
+     							keyPressed = false;
+     							
+     							var page = pageNo - phraseNo;
+     							page = page + 1;
+     							
+     							document.getElementById("wordArea" + page).style.display = "none";
+    							document.getElementById("wordArea1").style.display = "block";
+     							
+      							i = bottomOfMenu + 1;
+								j = bottomOfMenu + 0;
+     			
+      							return; 
+							}
+   						}, 1000) 
+   					} 
+   				}
+			}
+   		}, 1000)
+	}
+    
+	selectedSubMenu(1);
+	
+	mainLoop();
+	
+</script>
 </body>
 </html>
