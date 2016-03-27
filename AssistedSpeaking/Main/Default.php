@@ -1,6 +1,5 @@
 <?php
 	error_reporting(E_ERROR); //Turn off PHP error reporting
-	$con = mysqli_connect("188.121.44.165","AssistedSpeak","a55!sT3D","AssistedSpeak"); //Connection string
 ?>
 
 <html manifest="../cache.manifest">
