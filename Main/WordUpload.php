@@ -1,5 +1,5 @@
 <?php
-			
+		$con = mysqli_connect("188.121.44.165","AssistedSpeak","a55!sT3D","AssistedSpeak"); //Connection string	
 	
 	// Check connection
 	if (!$con) {
