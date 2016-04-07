@@ -253,7 +253,6 @@
 			
 				$scope.deleteWords();
 			
-
 	//--- Load words into AngularJS through PHP ---
 				<?php 
 			
@@ -365,7 +364,6 @@
 																		  . "<img class='img-responsive center-block' src='{{page".$pageUse."Image".$j."}}' alt='{{page".$pageUse."".$j."}}'/> \n" 
 																		  . "<h4>{{page".$pageUse."".$j."}}</h4> \n"
 																		  . "</div> \n";	
-
 										//Increment button used
 										$j++;
 										$buttonSubNum++;
@@ -399,7 +397,6 @@
 				//Hide loading screen
 			
 				document.getElementById("overLay1").style.display = "none";
-
 	//--- App buttons on click ---
 				$scope.loadWords = function (value) {
 					// Gather value of selected button
@@ -514,7 +511,6 @@
 						document.getElementById($display).style.display = "block";
 					}  
 				}
-
 	// --- Read speech bar ---
 				$scope.DataWords = function () {
 					//Read all the values in the speech bar
@@ -566,7 +562,6 @@
 					if (word10 == null) {
 						word10 = " ";
 					}
-
 					responsiveVoice.speak((word1 + " " + word2 + " " + word3 + " " + word4 + " " + word5 + " " + word6 + " " + word7 + " " + word8 + " " + word9 + " " + word10), speakingType, {volume: applicationVolumeInUse});
 					
 					$scope.deleteWords();
