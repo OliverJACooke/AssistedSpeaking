@@ -1,6 +1,7 @@
 <?php
 	error_reporting(E_ERROR); //Turn off PHP error reporting
 	
+	
 	if(isset($_POST['LogOut'])) {
 		setcookie("LoggedIn", "", time() - 3600);
 		header("Location: ../Main/Default.php");
@@ -39,7 +40,7 @@
 			var scanningColour = "Blue";
 			var themeColour = "Standard";
 			var scanningSpeed = "Standard";
-			var speakingType = "UK English Female";
+			var speakingType = "Fallback UK Female";
 			var applicationVolume = "Standard";
 			
 			//Refresh the page reloading the words
