@@ -25,6 +25,7 @@
 		<title>Assisted Speaking</title>
 	
 		<script>
+			
 	//--- Standard JS ---  	
 			<?php
 				$mainMenuArrayImage = array();
@@ -33,186 +34,6 @@
 				$totalImageButtons = array();
 				$mainMenuWordImageTotal = 0;
 			?>
-		
-			var scanning = false;
-			var interaction = "Touch";
-			var selectedColour = "Standard";
-			var scanningColour = "Blue";
-			var themeColour = "Standard";
-			var scanningSpeed = "Standard";
-			var speakingType = "Fallback UK Female";
-			var applicationVolume = "Standard";
-			
-			//Refresh the page reloading the words
-			function refreshPage() {
-				location.reload();
-			}
-		
-			function closeSettings() {
-				document.getElementById("overLay2").style.display = "none";
-			}
-		
-			function openSettings() {
-				document.getElementById("overLay2").style.display = "block";
-			}
-			
-			function pageHide(page) {
-				document.getElementById("wordArea" + page).style.display = "none";
-				document.getElementById("wordArea1").style.display = "block";
-			}
-		
-	// --- Look and Feel ---
-		// --- Change top header color ---
-			function selectedColourTheme() {
-				var themeToUse = document.getElementById("colourTheme").value;
-				applyColourTheme(themeToUse);
-			}
-			
-			function applyColourTheme(themeToUse) {
-				var headerColour;
-				var speachbarColor;
-			
-				switch (themeToUse) {
-					case "Standard":
-						headerColour = "#44D1FF";
-						speachbarColor = "#C3F1FF";
-						break;
-					case "Dark":
-						headerColour = "#1E1A26";
-						speachbarColor = "#5B6973";
-						break;
-					case "Light":
-						headerColour = "#BACFFF";
-						speachbarColor = "#C1EDFF";
-						break;
-					default:
-						headerColour = "#1E1A26";
-						speachbarColor = "#5B6973";
-				}
-				
-				document.getElementById("header").style.backgroundColor = headerColour;
-				document.getElementById("speechBar").style.backgroundColor = speachbarColor;
-			}
-		
-		// --- Change application background color ---
-			function selectedBackgroundColour() {
-				var colourToUse = document.getElementById("backgroundColour").value;
-				applyBackgroundColour(colourToUse);
-			}
-			
-			function applyBackgroundColour(colourToUse) {
-				switch (colourToUse) {
-					case "Blue":
-						selectedColour = "Blue";
-						break;
-					case "Red":
-						selectedColour = "Red";
-						break;
-					case "Standard":
-						selectedColour = "White";
-						break;
-					case "Green":
-						selectedColour = "Green";
-						break;
-					default:
-						selectedColour = "White";
-				}
-				
-				document.getElementById("wordAreaContainer").style.backgroundColor = selectedColour;
-			}
-		
-		// --- Change application scanning square color ---
-			function selectedScanningColour() {
-				var scanningColourToUse = document.getElementById("scanningColour").value;
-				applyScanningColour(scanningColourToUse);
-				
-			}
-			
-			function applyScanningColour(scanningColourToUse) {
-				switch (scanningColourToUse) {
-					case "Blue":
-						scanningColourInUse = "Blue";
-						break;
-					case "Red":
-						scanningColourInUse = "Red";
-						break;
-					case "Green":
-						scanningColourInUse = "Green";
-						break;
-					default:
-						scanningColourInUse = "Blue";
-				}
-			}
-			
-	// --- Interface Options ---
-		// --- Change scanning options ---
-			function selectedScanningOptions() {
-				var interactionToUse = document.getElementById("scanningOptions").value;
-				applyScanningOptions(interactionToUse);
-			}
-			
-			function applyScanningOptions(interactionToUse) {
-				switch (interactionToUse) {
-					case "Scanning":
-						scanning = true;
-						mainLoop();
-						break;
-					case "Touch":
-						scanning = false;
-						break;
-				}
-			}
-			
-		// --- Change scanning speed ---
-			function selectedScanningSpeed() {
-				var scanningSpeedToUse = document.getElementById("scanningSpeed").value;
-				applyScanningSpeed(scanningSpeedToUse);
-			}
-			
-			function applyScanningSpeed(scanningSpeedToUse) {
-				switch (scanningSpeedToUse) {
-					case "Slow":
-						scanningSpeed = 1500;
-						break;
-					case "Standard":
-						scanningSpeed = 1000;
-						break;
-					case "Fast":
-						scanningSpeed = 750;
-						break;
-					case "VeryFast":
-						scanningSpeed = 500;
-						break;
-				}
-			}
-		
-		// --- Change voice type ---
-			function selectedVoiceType() {
-				var voiceTypeToUse = document.getElementById("voiceType").value;
-				speakingType = voiceTypeToUse;
-			}
-			
-		// --- Change scanning speed ---
-			var	applicationVolumeInUse;
-			function selectedSpeechVolume() {
-				var volumeToUse = document.getElementById("voiceVolume").value;
-				applySpeechVolume(volumeToUse);
-			}
-			
-			function applySpeechVolume(volumeToUse) {
-				switch (volumeToUse) {
-					case "Quite":
-						applicationVolumeInUse = 0.1;
-						break;
-					case "Standard":
-						applicationVolumeInUse = 0.5;
-						break;
-					case "Loud":
-						applicationVolumeInUse = 1;
-						break;
-				}
-			}
-			
 	//--- AngularJS ---
 			//AngularJS module creation
 			var app = angular.module("myApp", []);
@@ -396,7 +217,7 @@
 				?>
 				//Hide loading screen
 			
-				document.getElementById("overLay1").style.display = "none";
+				
 	//--- App buttons on click ---
 				$scope.loadWords = function (value) {
 					// Gather value of selected button
@@ -562,7 +383,7 @@
 					if (word10 == null) {
 						word10 = " ";
 					}
-					responsiveVoice.speak((word1 + " " + word2 + " " + word3 + " " + word4 + " " + word5 + " " + word6 + " " + word7 + " " + word8 + " " + word9 + " " + word10), speakingType, {volume: applicationVolumeInUse});
+					responsiveVoice.speak((word1 + " " + word2 + " " + word3 + " " + word4 + " " + word5 + " " + word6 + " " + word7 + " " + word8 + " " + word9 + " " + word10), applicationSettings.speechType, {volume: applicationSettings.applicationVolume});
 					
 					$scope.deleteWords();
 				}        
@@ -621,7 +442,7 @@
 						</p>
 					</div>
 					<div class="rightSplit">
-						<select id="colourTheme" onchange="selectedColourTheme()">
+						<select id="colourTheme">
 							<option value="Standard">Standard</option>
 							<option value="Dark">Dark</option>
 							<option value="Light">Light</option>
@@ -636,7 +457,7 @@
 						</p>
 					</div>
 					<div class="rightSplit">
-						<select id="backgroundColour" onchange="selectedBackgroundColour()">
+						<select id="backgroundColour">
 							<option value="Standard" >Standard</option>
 							<option value="Red">Red</option>
 							<option value="Blue">Blue</option>
@@ -652,7 +473,7 @@
 						</p>
 					</div>
 					<div class="rightSplit">
-						<select id="scanningColour" onchange="selectedScanningColour()">
+						<select id="scanningColour">
 							<option value="Blue">Blue</option>
 							<option value="Red">Red</option>
 							<option value="Green">Green</option>
@@ -680,7 +501,7 @@
 						</p>
 					</div>
 					<div class="rightSplit">
-						<select id="scanningOptions" onchange="selectedScanningOptions()">
+						<select id="interactionMethod">
 							<option value="Touch">Touch</option>
 							<option value="Scanning">Scanning</option>
 						</select>
@@ -694,7 +515,7 @@
 						</p>
 					</div>
 					<div class="rightSplit">
-						<select id="scanningSpeed" onchange="selectedScanningSpeed()">
+						<select id="scanningSpeed">
 							<option value="Standard">Standard</option>
 							<option value="Slow">Slow</option>
 							<option value="Fast">Fast</option>
@@ -728,7 +549,7 @@
 						</p>
 					</div>
 					<div class="rightSplit">
-						<select id="voiceVolume" onchange="selectedSpeechVolume()">
+						<select id="voiceVolume">
 							<option value="Standard">Standard</option>	
 							<option value="Quite">Quite</option>
 							<option value="Loud">Loud</option>
@@ -923,9 +744,9 @@
 			?>	
 	
 			document.body.onkeyup = function(e){
-				if (scanning == true) {
+				if (applicationSettings.interaction == "Scanning") {
 					if(e.keyCode == 32) {
-						keyPressed = true;
+						keyPressed = true;  
 					}
 					else {
 						keyPressed = false;
@@ -936,147 +757,9 @@
 					 angular.element(document.getElementById('speechButton')).scope().DataWords();
 				}
 			}
-	 
-			var k = 1;
-			var l = 0;  
-			var cell = "";
-			var previousCell = "";
-			var subCell = "";
-			var subCellPreviouse ="";
-			var mainMenuLength = mainMenuIDs.length;
-	
-			function mainLoop () {   
-				if (scanning == true)
-				{        
-					setTimeout(function () {
-		
-						cell = "cell" + mainMenuIDs[k];	
-						previousCell = "cell" + mainMenuIDs[l];
-			
-						if (keyPressed == false) {		
-							document.getElementById(cell).style.backgroundColor = scanningColourInUse;
-			
-							if (l == mainMenuLength - 2) {
-								document.getElementById(previousCell).style.backgroundColor = "transparent"; 
-								l = 0;
-							}
-				
-							if (l != 0) { 
-								document.getElementById(previousCell).style.backgroundColor = "transparent"; 
-							} 			
-				
-							k++;    
-							l++; 
-						
-							if (k == mainMenuLength - 1) {
-								setTimeout(function () {   
-									document.getElementById(cell).style.backgroundColor = "transparent";
-								}, scanningSpeed)	
-								k = 1;
-								l = mainMenuLength - 2;
-							}
-				
-							mainLoop();            
-						}
-						else {
-							document.getElementById(previousCell).style.backgroundColor = "transparent";
-				
-							document.getElementById(previousCell).click();
-				
-							keyPressed = false;
-					
-							if (previousCell == "cell" + mainMenuIDs[mainMenuLength - 2]) {
-								k = mainMenuLength - 1;
-							}	
-				
-							if (k <= phraseNo) {
-								k = 1;
-								l = 0; 
-					
-								mainLoop();
-							}
-							else {
-					
-								selectedSubMenu(k);
-								pageNo = k;
-				
-								i = bottomOfMenu + 1;
-								j = bottomOfMenu + 0; 
-					
-								subLoop();
-								mainLoop();
-					
-								function subLoop () { 
-									setTimeout(function () {
-										subCell = "cell" + i;     
-										subPreviousCell = "cell" + j;
-										k = 1;
-										l = 0; 
-							
-										if (keyPressed == false) {				
-											document.getElementById(subCell).style.backgroundColor = scanningColourInUse;  
-					
-											if (j != 0) { 
-												document.getElementById(subPreviousCell).style.backgroundColor = "transparent"; 
-											} 			
-				
-											i++;    
-											j++;            
-					   
-											if (i == (topOfMenu + 1)) {
-												setTimeout(function () {  
-														document.getElementById(subCell).style.backgroundColor = "transparent"; 
-												}, scanningSpeed)
-												i = bottomOfMenu + 1;
-												j = bottomOfMenu + 0; 
-											}
-				
-											subLoop();            
-										}
-										else {
-											document.getElementById(subPreviousCell).style.backgroundColor = "transparent"; 
-											document.getElementById(subPreviousCell).click();
-					
-											keyPressed = false;
-								
-											var page = pageNo - phraseNo;
-											page = page + 1;
-								
-											document.getElementById("wordArea" + page).style.display = "none";
-											document.getElementById("wordArea1").style.display = "block";
-								
-											i = bottomOfMenu + 1;
-											j = bottomOfMenu + 0;
-				
-											return; 
-										}
-									}, scanningSpeed) 
-								} 
-							}
-						}
-					}, scanningSpeed)
-				}
-				else {
-					document.getElementById(cell).style.backgroundColor = "transparent";
-					k = 1;
-					l = 0;
-					cell = "";
-					previousCell = "";
-					subCell = "";
-					subCellPreviouse ="";
-			
-				}
-			}
-	
 			selectedSubMenu(1);
-		
-			applyColourTheme(themeColour);
-			applyBackgroundColour(selectedColour);
-			applyScanningOptions(interaction);  	
-			applyScanningColour(scanningColour);
-			applyScanningSpeed(scanningSpeed);
-			selectedSpeechVolume(applicationVolume);
+			
 		</script>
-		
+		<script src="../Scripts/Custom Scripts/Settings.js"> </script>
 	</body>
 </html>
