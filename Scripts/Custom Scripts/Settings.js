@@ -195,6 +195,23 @@
 			}
 			
 //Single Step Scanning
+			
+			document.body.onkeyup = function(e){
+				if (applicationSettings.interaction == "Scanning") {
+					if(e.keyCode == 32) {
+						keyPressed = true;  
+					}
+					else {
+						keyPressed = false;
+					}   
+				}
+			
+				if(e.keyCode == 13) {
+					 angular.element(document.getElementById('speechButton')).scope().DataWords();
+				}
+			}
+			
+
 			var k = 1;
 			var l = 0;  
 			var cell = "";
@@ -326,4 +343,5 @@
 				}
 			}
 			
-			
+			selectedSubMenu(1);
+//Row scanning

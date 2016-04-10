@@ -742,22 +742,6 @@
 					$k++;
 				}
 			?>	
-	
-			document.body.onkeyup = function(e){
-				if (applicationSettings.interaction == "Scanning") {
-					if(e.keyCode == 32) {
-						keyPressed = true;  
-					}
-					else {
-						keyPressed = false;
-					}   
-				}
-			
-				if(e.keyCode == 13) {
-					 angular.element(document.getElementById('speechButton')).scope().DataWords();
-				}
-			}
-			selectedSubMenu(1);
 			
 		</script>
 		<script src="../Scripts/Custom Scripts/Settings.js"> </script>
