@@ -139,31 +139,71 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Words</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
 </head>
     
 <body>
-</br>
-	<a href="../Main/Default.php">Back to AssistedSpeaking</a>
-        <form action="../Main/WordUpload.php" method="post">
-		<h1>Action</h1>
-		<p> Specify the desired action.</p>
-		<input type="radio" name="action" value="add" checked>Add<br>
-		<input type="radio" name="action" value="delete">Delete<br><br><hr><hr>
-		<h1>Category</h1>
-		<p>Specify the category to select. Entering "Core" will select the core words category. If the selected category does not exist then it will be created.</p>
-        	<input type="text" name="category" id="category"/>
-        	<h1>Word</h1>
-        	<p>Specify a word to add to the selected category. This word will be appear under the newly created button</p>
-        	<input type="text" name="word" id="word"/>
-        	<h1></h1>
-        	<h1>Phrase</h1>
-        	<p>Enter the phrase to be spoken when the word is selected</p>
-        	<input type="text" name="phrase" id="phrase"/>
-			<h1>Image Name</h1>
-			<p>Image name, with no spaces. If no value is provided then the image will default to a cross symbol.</p>
-        	<input type="text" name="image" id="image"/>
-        	</br></br>
-        	<input type="submit" name="submit" value="submit">
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="../Main/Default.php">
+					<img class="img-responsive" src="../Images/YouSpeakTxtLarge.png" alt="YouSpeak Large" width="130"/>
+				</a>
+			</div>
+			<ul class="nav navbar-nav">
+				<li><a href="../Main/Default.php">Speech Screen</a></li>
+				<li class="active"><a href="../Main/UpdateWordBank.php">New Words</a></li>
+			</ul>
+		</div>
+	</nav>
+	<div class="container">
+	<h1>
+		New Words/New Categories
+	</h1>
+	<p>
+		<em>
+		Use this page to add brand new words to a currently existing group, or create brand new categories to your account.
+		</em>
+	</p>
+        <form role="form" action="../Main/WordUpload.php" method="post">
+			<div class="form-group">
+				<label for="Action">Action</label>
+				<p> Specify the desired action.</p>
+				<div class="radio">
+					<label class="radio-inline"><input type="radio" name="action" value="add" checked>Add</input></label>
+				</div>
+				<div class="radio">
+					<label class="radio-inline"><input type="radio" name="action" value="delete">Delete</input></label>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="Category">Category</label>
+				<p>Specify the category to select. Entering "Core" will select the core words category. If the selected category does not exist then it will be created.</p>
+				<input class="form-control" type="text" name="category" id="category"/>
+			</div>
+			<div class="form-group">
+				<label for="Word">Word</label>
+				<p>Specify a word to add to the selected category. This word will be appear under the newly created button</p>
+				<input class="form-control" type="text" name="word" id="word"/>
+			</div>
+			<div class="form-group">
+				<label for="Phrase">Phrase</label>
+				<p>Enter the phrase to be spoken when the word is selected</p>
+				<input class="form-control" type="text" name="phrase" id="phrase"/>
+			</div>
+			<div class="form-group">
+				<label for="Image Name">Image Name</label>
+				<p>Image name, with no spaces. If no value is provided then the image will default to a cross symbol.</p>
+				<input class="form-control" type="text" name="image" id="image"/>
+			</div>
+			<input class="btn btn-default" type="submit" name="submit" value="submit">
+			
         </form>
+	</div>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+	<script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+	
 </body>
 </html>
