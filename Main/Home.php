@@ -114,7 +114,7 @@
 </div>
 </br></br></br>
 	<div class="container">
-		<div class="row">
+		<div class="row" style="text-align:center;">
 			<div class="col-lg-offset-4 col-lg-4">
 				<h1>Why YouSpeak</h1>
 			</div>
@@ -173,9 +173,17 @@
 					You can completly generate your own word banks using YouSpeak, decide what you would like to say and put it in to YouSpeak on the fly. This is because of YouSpeak's use
 					of a powerful and realistic sounding text to speach engine.
 				</p>
+				</br></br></br></br></br>
 			</div>
-	</div>  
-</div>
+		</div>  
+	</div>
+	<div style="background-color:#1F242A; color:white; width:100%; text-align:center; padding:20px 0 10px;">
+		<div class="container">
+			<p>
+				Designed and Developed By <span style="color:#C3F1FF">Oliver Cooke</span>, <span style="color:#C3F1FF">Matt Sutton</span> and <span style="color:#C3F1FF">Eh Kan Nyaw</span>
+			</p>	
+		</div>
+	</div>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 	<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
 	<script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
