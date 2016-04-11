@@ -162,9 +162,9 @@
 			</ul>
 			<div id="navbar" class="nav navbar-nav navbar-right">
 				<ul class="nav navbar-nav">
-					<li><a href="../Main/Dashboard.php">Dashboard Home</a></li>
+					<li class="active"><a href="../Main/Dashboard.php">Dashboard Home</a></li>
 					<li><a>Guides</a></li>
-					<li class="active"><a href="../Main/UpdateWordBank.php">New Words</a></li>
+					<li><a href="../Main/UpdateWordBank.php">New Words</a></li>
 					<li><a href="../Main/Logout.php">Logout</a></li>
 				</ul>
 			</div>
@@ -172,47 +172,14 @@
 	</nav>
 	<div class="container">
 	<h1>
-		New Words/New Categories
+		Dashboard
 	</h1>
 	<p>
 		<em>
-		Use this page to add brand new words to a currently existing group, or create brand new categories to your account.
+		Welcome To Your Dashboard!
 		</em>
 	</p>
-        <form role="form" action="../Main/WordUpload.php" method="post">
-			<div class="form-group">
-				<label for="Action">Action</label>
-				<p> Specify the desired action.</p>
-				<div class="radio">
-					<label class="radio-inline"><input type="radio" name="action" value="add" checked>Add</input></label>
-				</div>
-				<div class="radio">
-					<label class="radio-inline"><input type="radio" name="action" value="delete">Delete</input></label>
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="Category">Category</label>
-				<p>Specify the category to select. Entering "Core" will select the core words category. If the selected category does not exist then it will be created.</p>
-				<input class="form-control" type="text" name="category" id="category"/>
-			</div>
-			<div class="form-group">
-				<label for="Word">Word</label>
-				<p>Specify a word to add to the selected category. This word will be appear under the newly created button</p>
-				<input class="form-control" type="text" name="word" id="word"/>
-			</div>
-			<div class="form-group">
-				<label for="Phrase">Phrase</label>
-				<p>Enter the phrase to be spoken when the word is selected</p>
-				<input class="form-control" type="text" name="phrase" id="phrase"/>
-			</div>
-			<div class="form-group">
-				<label for="Image Name">Image Name</label>
-				<p>Image name, with no spaces. If no value is provided then the image will default to a cross symbol.</p>
-				<input class="form-control" type="text" name="image" id="image"/>
-			</div>
-			<input class="btn btn-default" type="submit" name="submit" value="submit">
-			
-        </form>
+
 	</div>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 	<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
