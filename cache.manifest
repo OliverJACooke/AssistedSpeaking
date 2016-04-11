@@ -1,0 +1,22 @@
+CACHE MANIFEST
+Main/Default.php
+App_Themes/StyleSheet.css
+Scripts/AngularJS.js
+Scripts/ResponsiveVoice.js
+Scripts/Config.js
+Images/back.png
+Images/speak.png
+Images/loading.gif
+Images/YouSpeakTxtLarge.png
+Images/Settings.png
+Images/close.png
+Images/WordImages/noImage.png
+Images/WordImages/drink.png
+Images/WordImages/Hello.png
+Images/WordImages/food.png
+Images/WordImages/aboutMe.png
+Images/WordImages/please.png
+Images/WordImages/calendarTime.png
+http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css
+https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js
+http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js
