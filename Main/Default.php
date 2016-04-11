@@ -7,9 +7,9 @@
 		header("Location: ../Main/Default.php");
 	}
 	
-	//if (!isset($_COOKIE["LoggedIn"])) {
-	//	header("Location: ../Main/Login.php");
-	//}
+	if (!isset($_COOKIE["LoggedIn"])) {
+		header("Location: ../Main/Login.php");
+	}
 ?>
 
 <html><!-- manifest="../cache.manifest">-->
