@@ -16,10 +16,10 @@
 	<head>
 		<meta charset="utf-8">
   		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link href="../App_Themes/StyleSheet.css" rel="stylesheet" /> <!-- Custom Style Sheet-->
 		<script src="../Scripts/ResponsiveVoice.js"></script> <!-- Text to Speech JS-->
 		<script src="../Scripts/AngularJS.js"></script> <!-- AngularJS-->
 		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+		<link href="../App_Themes/StyleSheet.css" rel="stylesheet" /> <!-- Custom Style Sheet-->
   		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
   		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 		<title>Assisted Speaking</title>
@@ -558,17 +558,23 @@
 				</div>
 			</div>
 		</div>
-		<div class="container-fluid">
-			<div class="row header-padding" id="header">
-				<div class="col-xs-2">
-					<img class="img-responsive" src="../Images/YouSpeakTxtLarge.png" alt="YouSpeak Large" width="210"/>
+		<div class="navbar navbar-default header-padding" id="header">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#"><img class="img-responsive" src="../Images/YouSpeakTxtLarge.png" alt="YouSpeak Large" width="140"/></a>						
 				</div>
-				<div class="col-xs-offset-9 col-xs-1">
+				<ul class="nav navbar-nav">
+					<li><a href="../main/UpdateWordBank.php">New Words</a></li>
+					
+				</ul>
+				<div id="navbar" class="nav navbar-nav navbar-right">
 					<a onclick="openSettings()">
 						<img class="img-responsive" src="../Images/Settings.png" alt="Settings" width="50"/>
 					</a>
 				</div>
 			</div>
+		</div>
+		<div class="container-fluid">
 			<div id="speechBar" class="row headerPadding">
 				<div class="col-xs-1">
 					<h3 id="choice1">

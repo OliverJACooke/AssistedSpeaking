@@ -17,6 +17,12 @@ img {
 	pointer-events:none;
 }
 
+.navbar {
+    margin-bottom: 0;
+	border:none;
+	 border-radius: 0;
+}
+
 .header {
     width:100%;
     min-width:800px;
@@ -27,7 +33,7 @@ img {
 }
 
 .header-padding {
-	padding:10px 0 10px 20px;
+	padding:10px 10px 10px 0;
 }
 
 #overLay1 {
