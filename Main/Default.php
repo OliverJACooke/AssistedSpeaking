@@ -751,5 +751,6 @@
 			
 		</script>
 		<script src="../Scripts/Custom Scripts/Settings.js"> </script>
+		<script src="../Scripts/Custom Scripts/Single Step Scanning.js"></script>
 	</body>
 </html>

@@ -4,6 +4,8 @@ App_Themes/StyleSheet.css
 Scripts/AngularJS.js
 Scripts/ResponsiveVoice.js
 Scripts/Config.js
+Scripts/Custom Scripts/Settings.js
+Scripts/Custom Scripts/Single Step Scanning.js
 Images/back.png
 Images/speak.png
 Images/loading.gif
