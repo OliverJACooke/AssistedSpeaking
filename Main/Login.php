@@ -32,11 +32,16 @@ if(isset($_POST['submit'])) {
 				$query2 = $pdo->prepare($sql2); 
 				$query2->execute(array(":username"=>$username,":password"=>$passwordHashed));
 				$results2 = $query2->fetchAll();
-				$userID = $results2[0][0];
+				
+				if($results2 != FALSE && $query ->rowCount() > 0) {
+					$userID = $results2[0][0];
 				 
-				if(isset($userID)) {
-					setcookie("LoggedIn", $userID, time()+3600);
-					header("Location: ../Main/Default.php");	
+					if(isset($userID)) {
+						setcookie("LoggedIn", $userID, time()+3600);
+						header("Location: ../Main/Default.php");	
+					} else {
+						$error = "Incorrect Username or Password";
+					}
 				} else {
 					$error = "Incorrect Username or Password";
 				}
