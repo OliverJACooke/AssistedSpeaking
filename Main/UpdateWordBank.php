@@ -1,5 +1,9 @@
 <?php
-
+	if(isset($_POST['LogOut'])) {
+		setcookie("LoggedIn", "", time() - 3600);
+		header("Location: ../Main/Default.php");
+	}
+	
 	function db_connect(){
 		// Function to establish initial connection to the database
         	$con = mysqli_connect("188.121.44.165","AssistedSpeak","a55!sT3D","AssistedSpeak"); //Connection string	
@@ -152,9 +156,15 @@
 				</a>
 			</div>
 			<ul class="nav navbar-nav">
-				<li><a href="../Main/Default.php">Speech Screen</a></li>
-				<li class="active"><a href="../Main/UpdateWordBank.php">New Words</a></li>
+				<li><a href="../Main/Home.php">Home</a></li>
+				<li><a href="../Main/Default.php">Application</a></li>
 			</ul>
+			<div id="navbar" class="nav navbar-nav navbar-right">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="../Main/UpdateWordBank.php">New Words</a></li>
+					<li><a href="../Main/Logout.php">Logout</a></li>
+				</ul>
+			</div>
 		</div>
 	</nav>
 	<div class="container">

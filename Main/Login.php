@@ -56,20 +56,21 @@ if(isset($_POST['submit'])) {
 	<head>
 		<meta charset="utf-8">
   		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
 		<link href="../App_Themes/StyleSheet.css" rel="stylesheet" /> <!--Custom Style Sheet-->
-		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-  		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     	<title>Login</title>
 	</head>
 	<body>
-		<div class="navbar navbar-default header-padding" id="header">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<a class="navbar-brand" href="#"><img class="img-responsive" src="../Images/YouSpeakTxtLarge.png" alt="YouSpeak Large" width="140"/></a>						
-				</div>
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="../Main/Default.php">
+					<img class="img-responsive" src="../Images/YouSpeakTxtLarge.png" alt="YouSpeak Large" width="130"/>
+				</a>
 			</div>
 		</div>
+	</nav>
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-offset-2 col-sm-1">
@@ -101,5 +102,8 @@ if(isset($_POST['submit'])) {
   				</div>
 			</form>
 		</div>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+		<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+		<script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 	</body>
 </html>

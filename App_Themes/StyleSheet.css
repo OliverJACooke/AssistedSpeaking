@@ -36,6 +36,11 @@ img {
 	padding:10px 10px 10px 0;
 }
 
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
+
 #overLay1 {
 	position:absolute;
 	z-index:1;

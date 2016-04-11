@@ -564,7 +564,7 @@
 					<a class="navbar-brand" href="#"><img class="img-responsive" src="../Images/YouSpeakTxtLarge.png" alt="YouSpeak Large" width="140"/></a>						
 				</div>
 				<ul class="nav navbar-nav">
-					<li><a href="../main/UpdateWordBank.php">New Words</a></li>
+					<li><a href="../main/UpdateWordBank.php">Home</a></li>
 					
 				</ul>
 				<div id="navbar" class="nav navbar-nav navbar-right">
