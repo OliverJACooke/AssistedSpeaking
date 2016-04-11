@@ -163,7 +163,7 @@
 			<div id="navbar" class="nav navbar-nav navbar-right">
 				<ul class="nav navbar-nav">
 					<li><a href="../Main/Dashboard.php">Dashboard Home</a></li>
-					<li><a>Guides</a></li>
+					<li><a href="../Main/Guides.php">Guides</a></li>
 					<li class="active"><a href="../Main/UpdateWordBank.php">New Words</a></li>
 					<li><a href="../Main/Logout.php">Logout</a></li>
 				</ul>
