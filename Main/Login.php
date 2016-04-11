@@ -1,7 +1,7 @@
 <?php
 	session_start();
 	$pdo = new PDO('mysql:host=188.121.44.165;dbname=AssistedSpeak','AssistedSpeak','a55!sT3D');
-	
+	$error = "";
 if(isset($_POST['submit'])) {
 		$username		= $_POST['username'];
 		$password 		= $_POST['password'];
@@ -63,10 +63,10 @@ if(isset($_POST['submit'])) {
     	<title>Login</title>
 	</head>
 	<body>
-		<div class="container-fluid">
-			<div class="row row-header">
-				 <div class="col-md-2">
-					<img class="img-responsive" src="../Images/YouSpeakTxtLarge.png" alt="YouSpeak Large"/>
+		<div class="navbar navbar-default header-padding" id="header">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#"><img class="img-responsive" src="../Images/YouSpeakTxtLarge.png" alt="YouSpeak Large" width="140"/></a>						
 				</div>
 			</div>
 		</div>
@@ -96,6 +96,7 @@ if(isset($_POST['submit'])) {
 				</div>
 				<div class="form-group"> 
 					<div class="col-sm-offset-3 col-sm-6" style="color:red;">
+						<?php echo $error; ?>
   					</div>
   				</div>
 			</form>
