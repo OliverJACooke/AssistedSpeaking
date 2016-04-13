@@ -23,7 +23,7 @@
 					<li class="active"><a href="../Main/Dashboard.php">Dashboard</a></li>
 					<li><a href="../Main/Guides.php">Guides</a></li>
 					<li><a href="../Main/UpdateWordBank.php">New Words</a></li>
-					<li><a href="../Main/Logout.php">Logout</a></li>
+					<li><a href="../CodeBehind/Logout.php">Logout</a></li>
 				</ul>
 			</div>
 		</div>

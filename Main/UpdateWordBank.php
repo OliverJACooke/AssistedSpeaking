@@ -4,16 +4,7 @@
 		header("Location: ../Main/Default.php");
 	}
 	
-	function db_connect(){
-		// Function to establish initial connection to the database
-        	$con = mysqli_connect("188.121.44.165","AssistedSpeak","a55!sT3D","AssistedSpeak"); //Connection string	
-		// Check connection
-		if (!$con) {
-    			die("Connection failed: " . mysqli_connect_error());
-		} else{
-			return $con;
-		}
-	}
+	include '../CodeBehind/database.php';
 
 	function create_new_category($con, $image, $category){
 		// Function to create a new category
@@ -60,7 +51,7 @@
 	//////////// MAIN CODE START ////////////
 
 	// Call db connection
-	$con = db_connect();
+	$con = db_connect_mysqli();
 			
 	if(isset($_POST['submit'])) {
 		$word = $_POST['word'];
@@ -79,7 +70,6 @@
 		// Check if a category was provided and add word to an existing group if so
 		if ($_POST['category'] != "") {
 			$category = $_POST['category'];
-		
 		
 			// If category is not the Core category, get ID
 			if (strtolower($category) != "core") {
@@ -165,7 +155,7 @@
 					<li><a href="../Main/Dashboard.php">Dashboard</a></li>
 					<li><a href="../Main/Guides.php">Guides</a></li>
 					<li class="active"><a href="../Main/UpdateWordBank.php">New Words</a></li>
-					<li><a href="../Main/Logout.php">Logout</a></li>
+					<li><a href="../CodeBehind/Logout.php">Logout</a></li>
 				</ul>
 			</div>
 		</div>
