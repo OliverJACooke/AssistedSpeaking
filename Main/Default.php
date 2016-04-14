@@ -16,7 +16,7 @@
 	
 ?>
 
-<html manifest="../cache.manifest">
+<html> <!-- manifest="../cache.manifest"> -->
 	<head>
 		<meta charset="utf-8">
   		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -29,15 +29,6 @@
 		<title>Assisted Speaking</title>
 	
 		<script>
-			
-	//--- Standard JS ---  	
-			<?php
-				$mainMenuArrayImage = array();
-				$subMenuArrayImage = array();
-				$subMenuWordImageTotal = array();
-				$totalImageButtons = array();
-				$mainMenuWordImageTotal = 0;
-			?>
 	//--- AngularJS ---
 			//AngularJS module creation
 			var app = angular.module("myApp", []);
@@ -78,143 +69,149 @@
 			
 				$scope.deleteWords();
 			
-	//--- Load words into AngularJS through PHP ---
+			//--- Load words into AngularJS through PHP ---
 				<?php 
-			
+						$mainMenuArrayImage = array();
+						$subMenuArrayImage = array();
+						$subMenuWordImageTotal = array();
+						$totalImageButtons = array();
+						$mainMenuWordImageTotal = 0;
+				
 						$buttonArray = array();
-						//Variable to keep track of blank sub page
-						$pageUse = 2;
+						
 					
 						//Selects words that are to be displayed on the main page
 						$selectMainWords="SELECT WordID, PhraseName, Phrase, Image FROM Words WHERE GroupID=0";
 						$mainWordsResults = mysqli_query($con, $selectMainWords);
-					
-						//Loop variable for button use
-						$i = 1;
-						$k = 0;
-						$m = 0;
+						
+						$cellIdNum = 0;
 						$buttonNum = 0;
-						$buttonSubNum = 0;
-					
+						$pageUse = 1;
+						$i = 1;
 						//Check for returned values
 						if (mysqli_num_rows($mainWordsResults) > 0) 
 						{
 							//Loop through returned rows
+							
 							while($row = mysqli_fetch_assoc($mainWordsResults)) 
 							{
-								$k++;
+								$cellIdNum = $buttonNum + 1;
+								
 								//Insert currently selected into variables
 								$phraseName = $row["PhraseName"];
 								$mainPhrase = $row["Phrase"];
 								$phraseImage = $row["Image"];
 							
 								//Print select variables into AngularJS, based on button position $i
-								print '$scope.page1'.$i.' = "'.$phraseName.'";';
-								print '$scope.page1Data'.$i.' = "'.$mainPhrase.'";';
+								print '$scope.page1'.$cellIdNum.' = "'.$phraseName.'";';
+								print '$scope.page1Data'.$cellIdNum.' = "'.$mainPhrase.'";';
+								print '$scope.page1Image'.$cellIdNum.' = "'.$phraseImage.'";';
 							
-								print '$scope.page1Image'.$i.' = "'.$phraseImage.'";';
-							
-								$mainMenuArrayImage[$buttonNum] = "<div class='col-xs-1 text-center' id='cell".$k."' ng-click='loadWords(\$event)' value='{{page1".$i."}}' data='{{page1Data".$i."}}'> \n"
-																. "<img class='img-responsive center-block' src='{{page1Image".$i."}}' alt='{{page1".$i."}}'/> \n" 
-																. "<h4>{{page1".$i."}}</h4> \n"
+								$mainMenuArrayImage[$buttonNum] = "<div class='col-xs-1 text-center' id='cell".$cellIdNum."' ng-click='loadWords(\$event)' value='{{page1".$cellIdNum."}}' data='{{page1Data".$cellIdNum."}}'> \n"
+																. "<img class='img-responsive center-block' src='{{page1Image".$cellIdNum."}}' alt='{{page1".$cellIdNum."}}'/> \n" 
+																. "<h4>{{page1".$cellIdNum."}}</h4> \n"
 																. "</div> \n";
 							
-								$totalImageButtons[$i] = $i;
+								$totalImageButtons[$cellIdNum] = $cellIdNum;
 								//Increment main page button used
-								$i++;
-							
+								
 								$buttonNum++;
+								$i++;
 							}	
 							$phraseNo = $i;
+							$pageUse++;
 						}
 					
 						//Select all word groups
 						$selectGroups="SELECT GroupID, GroupName, Image FROM WordGroup";
 						$groupResults = mysqli_query($con, $selectGroups);
-					
+						
+						
 						//Check for returned values
 						if (mysqli_num_rows($groupResults) > 0) 
 						{
 							//Loop through returned rows
+							$buttonSubNum = 0;
 							while($row = mysqli_fetch_assoc($groupResults)) 
 							{
-								$k++;
+								$cellIdNum++;
 								//Insert currently selected into variables
 								$groupID = $row["GroupID"];
 								$groupName = $row["GroupName"];
-		
 								$groupImage = $row["Image"];
 		
 								//Print select variables into AngularJS, based on button position $i
-								print '$scope.page1'.$i.' = "'.$groupName.'";';
-								print '$scope.page1Data'.$i.' = "NewPage '.$pageUse.'";';
+								print '$scope.page1'.$cellIdNum.' = "'.$groupName.'";';
+								print '$scope.page1Data'.$cellIdNum.' = "NewPage '.$pageUse.'";';
+								print '$scope.page1Image'.$cellIdNum.' = "'.$groupImage.'";';
 							
-								print '$scope.page1Image'.$i.' = "'.$groupImage.'";';
-							
-								$mainMenuArrayImage[$buttonNum] = "<div class='col-xs-1 text-center' id='cell".$k."' ng-click='loadWords(\$event)' value='{{page1".$i."}}' data='{{page1Data".$i."}}' style='border:2px solid black;'> \n"
-															  	. "<img class='img-responsive center-block' src='{{page1Image".$i."}}' alt='{{page1".$i."}}'/> \n"
-															  	. "<h4>{{page1".$i."}}</h4> \n"
+								$mainMenuArrayImage[$buttonNum] = "<div class='col-xs-1 text-center' id='cell".$cellIdNum."' ng-click='loadWords(\$event)' value='{{page1".$cellIdNum."}}' data='{{page1Data".$cellIdNum."}}' style='border:2px solid black;'> \n"
+															  	. "<img class='img-responsive center-block' src='{{page1Image".$cellIdNum."}}' alt='{{page1".$cellIdNum."}}'/> \n"
+															  	. "<h4>{{page1".$cellIdNum."}}</h4> \n"
 															  	. "</div> \n";
 							
-								$totalImageButtons[$i] = $i;
-								//
+								$totalImageButtons[$cellIdNum] = $cellIdNum;
+								$buttonNum++;
+								
 								//Select words associated with the currently selected group
 								$selectWords="SELECT WordID, GroupID, PhraseName, Phrase, Image FROM Words WHERE GroupID=".$groupID;
 								$wordResults = mysqli_query($con, $selectWords);
 							
+								
 								//Check for returned values
 								if (mysqli_num_rows($wordResults) > 0)
 								{	
-									//Loop variable for sub menu button use
-									$j = 1;
-			
-									//Loop through returned rows
+									//Loop variable for sub menu button use n
+									$subCellIdNum = 1;
+									//Loop through returned rows  
 									while($row = mysqli_fetch_assoc($wordResults))
 									{
-										$k++;
+										$cellIdNum++;
 										//Insert currently selected into variables
 										$groupID = $row["GroupID"];
 										$phraseName = $row["PhraseName"];
 										$phrase = $row["Phrase"];
-									
 										$phraseImage = $row["Image"];
 									
 										//Print select variables into AngualarJS, based on sub menu button position $j
-										print '$scope.page'.$pageUse.''.$j.' =  "'.$phraseName.'";';
-										print '$scope.page'.$pageUse.'Data'.$j.'= "'.$phrase.'";';
+										print '$scope.page'.$pageUse.''.$subCellIdNum.' =  "'.$phraseName.'";';
+										print '$scope.page'.$pageUse.'Data'.$subCellIdNum.'= "'.$phrase.'";';
 									
-										print '$scope.page'.$pageUse.'Image'.$j.' = "'.$phraseImage.'";';
+										print '$scope.page'.$pageUse.'Image'.$subCellIdNum.' = "'.$phraseImage.'";';
 										
-										$subMenuArrayImage[$buttonSubNum] = "<div class='col-xs-1 text-center' id='cell".$k."' ng-click='loadWords(\$event)' value='{{page".$pageUse."".$j."}}' data='{{page".$pageUse."Data".$j."}}'> \n" 
-																		  . "<img class='img-responsive center-block' src='{{page".$pageUse."Image".$j."}}' alt='{{page".$pageUse."".$j."}}'/> \n" 
-																		  . "<h4>{{page".$pageUse."".$j."}}</h4> \n"
+										$subMenuArrayImage[$buttonSubNum] = "<div class='col-xs-1 text-center' id='cell".$cellIdNum."' ng-click='loadWords(\$event)' value='{{page".$pageUse."".$subCellIdNum."}}' data='{{page".$pageUse."Data".$subCellIdNum."}}'> \n" 
+																		  . "<img class='img-responsive center-block' src='{{page".$pageUse."Image".$subCellIdNum."}}' alt='{{page".$pageUse."".$subCellIdNum."}}'/> \n" 
+																		  . "<h4>{{page".$pageUse."".$subCellIdNum."}}</h4> \n"
 																		  . "</div> \n";	
 										//Increment button used
-										$j++;
+										$subCellIdNum++;
 										$buttonSubNum++;
 									}
 									
-									$subMenuArrayImage[($buttonSubNum)] = "<div class='col-xs-1 text-center' id='cell".($k+1)."' onclick='pageHide(".($m+2).")'> \n"
+									$subCellIdNum++;
+									
+									// ADDS BACKBUTTON
+									$subMenuArrayImage[$buttonSubNum] = "<div class='col-xs-1 text-center' id='cell".$cellIdNum."' onclick='pageHide(".$pageUse.")'> \n"
 																		. "<img class='img-responsive center-block' src='../Images/backButton.png' alt='Back Button'/> \n"
 																		. "<h4>Back</h4> \n"
 																		. "</div> \n";
-									$j++;
-									$buttonSubNum++;
-									$k++;
-									//Increment page used
-									$subMenuWordImageTotal[$m] = $j;
-									$totalImageButtons[$i] = $totalImageButtons[($i-1)] + $j;
-									$m++;
+									//INCREMENTS AS BACKBUTTON REQUIRES ID
+									$buttonSubNum++; 
+									
+									//Adds the amount of buttons in a category to array
+									$subMenuWordImageTotal[($pageUse - 2)] = $subCellIdNum;
+									//Adds the new categories ID 
+									$totalImageButtons[$cellIdNum] = $totalImageButtons[($cellIdNum-1)] + $subCellIdNum;
+									//Increments the current category page
 									$pageUse++;
+									//Increments main page category buttons
+									
 								}
-								//Increment main page button postion
-								$i++;
-								$buttonNum++;
-							
+								$cellIdNum++;
 							}			
 						}
 					
-						$mainMenuWordImageTotal = $i;
+						$mainMenuWordImageTotal = $cellIdNum;
 					
 						//Close SQL connection once words are loaded
 						mysqli_close($con);
@@ -393,7 +390,6 @@
 				}        
 			});
 		</script>
-		
 	</head>
 	<body ng-app="myApp" ng-controller="myCtrl">
 		<div id="overLay1">
@@ -640,54 +636,56 @@
 		</div>
 		<div ID="wordAreaContainer" class="container-fluid">
 				<?php
-					//$cellNo = count($buttonArray);
-					$cellNo = count($mainMenuArrayImage);
-					$i = 0;
-				
-					print "\n <div ID='wordArea1'> \n";
-					print 	"<div class='row'> \n";
-						while ($i < $cellNo) {
-							print $mainMenuArrayImage[$i];
-				
-							if (($i != 0) && ($i % 11 == 0)) {
-								print "</div> \n";
-								print "<div class='row'> \n";
-							}
-					
-							$i++;
+					function new_word_area($i,$category) {
+						$newWordArea = "\n <div ID='wordArea".$i."'";
+						
+						if($category == "main") {
+							$newWordArea .=  "'> \n";
+						} 
+						else if ($category == "sub") {
+							$newWordArea .= "' style='display:none'>";
 						}
-					print	"</div> \n";
-					print 	"</div> \n";
-					print 	"</div> \n";
-			
+						
+						$newWordArea .= "<div class='row'> \n";
+						
+						return $newWordArea;
+					}
+				
+					$newRow = "</div> \n <div class='row'> \n";
+					$closeWordArea = "</div> \n </div> \n";
+					
+					$cellNo = count($mainMenuArrayImage);
 					$tableNo = count($subMenuWordImageTotal);
 					$subCellNo = count($subMenuArrayImage);
-					$table = 2;
-					$rows = 1;
-					$j = 0;
-					$l = 0;
-				
-						while ($j < $tableNo) {
-							print "\n <div ID='wordArea".($j+2)."' style='display:none'> \n";
-							print 		"<div class='row'> \n";
 					
-							$k = 1;
-							while ($k < $subMenuWordImageTotal[$j]) {
-								print 	$subMenuArrayImage[$l];
-						
-								if ($k % 11 == 0) {
-									print "</div> \n";
-									print "<div class='row'> \n";
-									$rows++;
-								}
-						
-								$k++;
-								$l++;
-							}
-							print	  		"</div> \n";
-							print 	"	</div> \n";
-							$j++;
+					$pageUse = 1;
+					print new_word_area($pageUse, "main");
+					
+					for($i = 0; $i < $cellNo; $i++) {
+						if (($i != 0) && ($i % 12 == 0)) {
+							print $newRow;
 						}
+						
+						print $mainMenuArrayImage[$i];
+					}
+					$pageUse++;
+					print $closeWordArea;
+					
+					$selectedSubButton = 0;
+					for($i = 0; $i < $tableNo; $i++) {
+						print new_word_area($pageUse, "sub");
+						
+						for($j = 1; $j < $subMenuWordImageTotal[$i]; $j++) {
+							print 	$subMenuArrayImage[$selectedSubButton];
+						
+							if ($j % 12 == 0) {
+								print $newRow;
+							}
+							$selectedSubButton++;
+						}
+						$pageUse++;
+						print $closeWordArea;
+					}
 				?>
 				
 		</div>
