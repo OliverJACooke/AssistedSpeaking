@@ -29,15 +29,6 @@
 		<title>Assisted Speaking</title>
 	
 		<script>
-			
-	//--- Standard JS ---  	
-			<?php
-				$mainMenuArrayImage = array();
-				$subMenuArrayImage = array();
-				$subMenuWordImageTotal = array();
-				$totalImageButtons = array();
-				$mainMenuWordImageTotal = 0;
-			?>
 	//--- AngularJS ---
 			//AngularJS module creation
 			var app = angular.module("myApp", []);
@@ -80,7 +71,12 @@
 			
 	//--- Load words into AngularJS through PHP ---
 				<?php 
-			
+						$mainMenuArrayImage = array();
+						$subMenuArrayImage = array();
+						$subMenuWordImageTotal = array();
+						$totalImageButtons = array();
+						$mainMenuWordImageTotal = 0;
+				
 						$buttonArray = array();
 						//Variable to keep track of blank sub page
 						$pageUse = 2;
@@ -393,7 +389,6 @@
 				}        
 			});
 		</script>
-		
 	</head>
 	<body ng-app="myApp" ng-controller="myCtrl">
 		<div id="overLay1">
@@ -640,54 +635,62 @@
 		</div>
 		<div ID="wordAreaContainer" class="container-fluid">
 				<?php
-					//$cellNo = count($buttonArray);
-					$cellNo = count($mainMenuArrayImage);
-					$i = 0;
-				
-					print "\n <div ID='wordArea1'> \n";
-					print 	"<div class='row'> \n";
-						while ($i < $cellNo) {
-							print $mainMenuArrayImage[$i];
-				
-							if (($i != 0) && ($i % 11 == 0)) {
-								print "</div> \n";
-								print "<div class='row'> \n";
-							}
-					
-							$i++;
+					function new_word_area($i,$category) {
+						$newWordArea = "\n <div ID='wordArea".$i."'";
+						
+						if($category == "main") {
+							$newWordArea .=  "'> \n";
+						} 
+						else if ($category == "sub") {
+							$newWordArea .= "' style='display:none'>";
 						}
-					print	"</div> \n";
-					print 	"</div> \n";
-					print 	"</div> \n";
-			
+						
+						$newWordArea .= "<div class='row'> \n";
+						
+						return $newWordArea;
+					}
+				
+					$newRow = "</div> \n <div class='row'> \n";
+					$closeWordArea = "</div> \n </div> \n";
+					
+					$cellNo = count($mainMenuArrayImage);
 					$tableNo = count($subMenuWordImageTotal);
 					$subCellNo = count($subMenuArrayImage);
-					$table = 2;
-					$rows = 1;
+					$i = 0;
 					$j = 0;
 					$l = 0;
-				
-						while ($j < $tableNo) {
-							print "\n <div ID='wordArea".($j+2)."' style='display:none'> \n";
-							print 		"<div class='row'> \n";
 					
-							$k = 1;
-							while ($k < $subMenuWordImageTotal[$j]) {
-								print 	$subMenuArrayImage[$l];
-						
-								if ($k % 11 == 0) {
-									print "</div> \n";
-									print "<div class='row'> \n";
-									$rows++;
-								}
-						
-								$k++;
-								$l++;
-							}
-							print	  		"</div> \n";
-							print 	"	</div> \n";
-							$j++;
+					print new_word_area(1, "main");
+					
+					while ($i < $cellNo) {
+						print $mainMenuArrayImage[$i];
+				
+						if (($i != 0) && ($i % 11 == 0)) {
+							print $newRow;
 						}
+					
+						$i++;
+					}
+					print $closeWordArea;
+			
+					while ($j < $tableNo) {
+						print new_word_area(($j+2), "sub");
+					
+						$k = 1;
+						while ($k < $subMenuWordImageTotal[$j]) {
+							print 	$subMenuArrayImage[$l];
+						
+							if ($k % 11 == 0) {
+								print $newRow;
+							}
+						
+							$k++;
+							$l++;
+						}
+							
+						print $closeWordArea;
+						$j++;
+					}
 				?>
 				
 		</div>
