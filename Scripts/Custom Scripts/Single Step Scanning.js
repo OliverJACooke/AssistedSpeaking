@@ -1,4 +1,4 @@
-
+			
 			var k = 1;
 			var l = 0;  
 			var cell = "";
@@ -6,7 +6,12 @@
 			var subCell = "";
 			var subCellPreviouse ="";
 			var mainMenuLength = mainMenuIDs.length;
-	
+			var keyPressed = false;
+			var bottomOfMenu = 0;
+			var topOfMenu = 0;
+			var bottomOfMenu = 0;
+			var topOfMenu = 0;
+			
 			function mainLoop () {   
 				if (applicationSettings.interaction == "Scanning")
 				{        
@@ -51,7 +56,7 @@
 								k = mainMenuLength - 1;
 							}	
 				
-							if (k <= phraseNo) {
+							if (k <= totalMainPhrase) {
 								k = 1;
 								l = 0; 
 					
@@ -101,7 +106,7 @@
 					
 											keyPressed = false;
 								
-											var page = pageNo - phraseNo;
+											var page = pageNo - totalMainPhrase;
 											page = page + 1;
 								
 											document.getElementById("wordArea" + page).style.display = "none";

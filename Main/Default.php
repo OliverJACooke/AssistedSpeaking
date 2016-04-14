@@ -74,12 +74,7 @@
 						$mainMenuArrayImage = array();
 						$subMenuArrayImage = array();
 						$subMenuWordImageTotal = array();
-						$totalImageButtons = array();
-						$mainMenuWordImageTotal = 0;
-				
-						$buttonArray = array();
 						
-					
 						//Selects words that are to be displayed on the main page
 						$selectMainWords="SELECT WordID, PhraseName, Phrase, Image FROM Words WHERE GroupID=0";
 						$mainWordsResults = mysqli_query($con, $selectMainWords);
@@ -87,7 +82,6 @@
 						$cellIdNum = 0;
 						$buttonNum = 0;
 						$pageUse = 1;
-						$i = 1;
 						//Check for returned values
 						if (mysqli_num_rows($mainWordsResults) > 0) 
 						{
@@ -95,7 +89,7 @@
 							
 							while($row = mysqli_fetch_assoc($mainWordsResults)) 
 							{
-								$cellIdNum = $buttonNum + 1;
+								$cellIdNum = $buttonNum + 1; 
 								
 								//Insert currently selected into variables
 								$phraseName = $row["PhraseName"];
@@ -112,13 +106,9 @@
 																. "<h4>{{page1".$cellIdNum."}}</h4> \n"
 																. "</div> \n";
 							
-								$totalImageButtons[$cellIdNum] = $cellIdNum;
 								//Increment main page button used
-								
 								$buttonNum++;
-								$i++;
 							}	
-							$phraseNo = $i;
 							$pageUse++;
 						}
 					
@@ -150,20 +140,16 @@
 															  	. "<h4>{{page1".$cellIdNum."}}</h4> \n"
 															  	. "</div> \n";
 							
-								$totalImageButtons[$cellIdNum] = $cellIdNum;
-								$buttonNum++;
-								
 								//Select words associated with the currently selected group
 								$selectWords="SELECT WordID, GroupID, PhraseName, Phrase, Image FROM Words WHERE GroupID=".$groupID;
 								$wordResults = mysqli_query($con, $selectWords);
 							
-								
 								//Check for returned values
 								if (mysqli_num_rows($wordResults) > 0)
 								{	
 									//Loop variable for sub menu button use n
 									$subCellIdNum = 1;
-									//Loop through returned rows  
+									//Loop through returned rows
 									while($row = mysqli_fetch_assoc($wordResults))
 									{
 										$cellIdNum++;
@@ -187,7 +173,7 @@
 										$subCellIdNum++;
 										$buttonSubNum++;
 									}
-									
+									$cellIdNum++;
 									$subCellIdNum++;
 									
 									// ADDS BACKBUTTON
@@ -200,14 +186,12 @@
 									
 									//Adds the amount of buttons in a category to array
 									$subMenuWordImageTotal[($pageUse - 2)] = $subCellIdNum;
-									//Adds the new categories ID 
-									$totalImageButtons[$cellIdNum] = $totalImageButtons[($cellIdNum-1)] + $subCellIdNum;
+									
 									//Increments the current category page
 									$pageUse++;
 									//Increments main page category buttons
-									
+									$buttonNum++;
 								}
-								$cellIdNum++;
 							}			
 						}
 					
@@ -658,32 +642,29 @@
 					$tableNo = count($subMenuWordImageTotal);
 					$subCellNo = count($subMenuArrayImage);
 					
-					$pageUse = 1;
-					print new_word_area($pageUse, "main");
+					print new_word_area(1, "main");
 					
 					for($i = 0; $i < $cellNo; $i++) {
 						if (($i != 0) && ($i % 12 == 0)) {
 							print $newRow;
 						}
-						
 						print $mainMenuArrayImage[$i];
 					}
-					$pageUse++;
 					print $closeWordArea;
 					
 					$selectedSubButton = 0;
 					for($i = 0; $i < $tableNo; $i++) {
-						print new_word_area($pageUse, "sub");
+						print new_word_area(($i+2), "sub");
 						
 						for($j = 1; $j < $subMenuWordImageTotal[$i]; $j++) {
 							print 	$subMenuArrayImage[$selectedSubButton];
-						
 							if ($j % 12 == 0) {
 								print $newRow;
 							}
+							
 							$selectedSubButton++;
 						}
-						$pageUse++;
+							
 						print $closeWordArea;
 					}
 				?>
@@ -691,63 +672,56 @@
 		</div>
 		<script>
 			//--- Table 1 Point Scanning ---
-			var keyPressed = false;
-			var cellCount = <?php print (array_sum($subMenuWordImageTotal) + $phraseNo); ?>;
+			
 			var mainButtons = <?php print count($mainMenuArrayImage);?>;
-			var bottomOfMenu = 0;
-			var topOfMenu = 0;
+			var totalMainPhrase = <?php print (count($mainMenuArrayImage) - count($subMenuWordImageTotal) + 1) ?>;
 			var mainMenuIDs = [];
-			var phraseNo = <?php print $phraseNo; ?>;
-	
+			
+			// prints javascript switch that stores the bottom and top IDs of each word
 			function selectedSubMenu(mainSelectedSubMenu){
 			<?php 
-				$i = 1;
+				$runningTopTotal = 0;
+				$runningBottomTotal = 0;
+				$mainButtons = (count($mainMenuArrayImage) - count($subMenuWordImageTotal) + 1);
+				$mainMenuID = []; 
+				print count($subMenuWordImageTotal);
+				print "\n switch(mainSelectedSubMenu) { ";
+				
 				$j = 0;
-				$runningTotal = 0;
-				$runningBottom = 0;
-				$mainButtons = $phraseNo;
-				$mainMenuID = "";
-		
-				print "switch(mainSelectedSubMenu) { ";
-				while ($i <= count($mainMenuArrayImage) + 1) {
+				for ($i = 1; $i <= (count($mainMenuArrayImage) + 1); $i++) {
 					if ($mainButtons == 0) {
 						$runningTopTotal = $runningTopTotal + $subMenuWordImageTotal[$j];
 						$runningBottomTotal = $runningBottomTotal + $subMenuWordImageTotal[$j - 1];
-				
-				
-						print "case ".$i.": ";
-						print "bottomOfMenu = ".$runningBottomTotal.";";
-						print "topOfMenu = ".$runningTopTotal."; ";
-						print "break; ";
+						
+						print "\n case ".$i.": ";
+						print "\n bottomOfMenu = ".$runningBottomTotal.";";
+						print "\n topOfMenu = ".$runningTopTotal."; ";
+						print "\n break; ";
 						$j++;
+						
 					}
 					else {
 						$runningTopTotal++;
 						$runningBottomTotal++;
 				
-						print "case ".$i.": "; 
-						print "bottomOfMenu = ".$runningBottomTotal.";";
-						print "topOfMenu = ".$runningTopTotal."; ";
-						print "break; ";
+						print "\n case ".$i.": "; 
+						print "\n bottomOfMenu = ".$runningBottomTotal.";";
+						print "\n topOfMenu = ".$runningTopTotal."; ";
+						print "\n break; ";
 				
 						$mainButtons--;
 					}
 			
 					$mainMenuID[$i] = $runningTopTotal;
-					$i++;
-			
-			
 				}
 				print "} ";
 			?>
 			}
 	
 			<?php	
-				$k = 1;
-		
-				while($k <= count($mainMenuID)) {
-					print "mainMenuIDs[".$k."] = ".$mainMenuID[$k]."; ";
-					$k++;
+				//Puts the value of each cell ID into a javascript array
+				for($i = 1; $i <= count($mainMenuID); $i++) {
+					print "\n mainMenuIDs[".$i."] = ".$mainMenuID[$i]."; ";
 				}
 			?>	
 			
