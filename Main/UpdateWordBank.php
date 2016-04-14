@@ -169,7 +169,7 @@
 		Use this page to add brand new words to a currently existing group, or create brand new categories to your account.
 		</em>
 	</p>
-        <form role="form" action="../Main/WordUpload.php" method="post">
+        <form role="form" action="../Main/UpdateWordBank.php" method="post">
 			<div class="form-group">
 				<label for="Action">Action</label>
 				<p> Specify the desired action.</p>
