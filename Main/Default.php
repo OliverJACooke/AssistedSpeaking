@@ -97,13 +97,13 @@
 								$phraseImage = $row["Image"];
 							
 								//Print select variables into AngularJS, based on button position $i
-								print '$scope.page1'.$cellIdNum.' = "'.$phraseName.'";';
+								print '$scope.page1id'.$cellIdNum.' = "'.$phraseName.'";';
 								print '$scope.page1Data'.$cellIdNum.' = "'.$mainPhrase.'";';
 								print '$scope.page1Image'.$cellIdNum.' = "'.$phraseImage.'";';
 							
-								$mainMenuArrayImage[$buttonNum] = "<div class='col-xs-1 text-center' id='cell".$cellIdNum."' ng-click='loadWords(\$event)' value='{{page1".$cellIdNum."}}' data='{{page1Data".$cellIdNum."}}'> \n"
-																. "<img class='img-responsive center-block' src='{{page1Image".$cellIdNum."}}' alt='{{page1".$cellIdNum."}}'/> \n" 
-																. "<h4>{{page1".$cellIdNum."}}</h4> \n"
+								$mainMenuArrayImage[$buttonNum] = "<div class='col-xs-1 text-center' id='cell".$cellIdNum."' ng-click='loadWords(\$event)' value='{{page1id".$cellIdNum."}}' data='{{page1Data".$cellIdNum."}}'> \n"
+																. "<img class='img-responsive center-block' src='{{page1Image".$cellIdNum."}}' alt='{{page1id".$cellIdNum."}}'/> \n" 
+																. "<h4>{{page1id".$cellIdNum."}}</h4> \n"
 																. "</div> \n";
 							
 								//Increment main page button used
@@ -131,13 +131,13 @@
 								$groupImage = $row["Image"];
 		
 								//Print select variables into AngularJS, based on button position $i
-								print '$scope.page1'.$cellIdNum.' = "'.$groupName.'";';
+								print '$scope.page1id'.$cellIdNum.' = "'.$groupName.'";';
 								print '$scope.page1Data'.$cellIdNum.' = "NewPage '.$pageUse.'";';
 								print '$scope.page1Image'.$cellIdNum.' = "'.$groupImage.'";';
 							
-								$mainMenuArrayImage[$buttonNum] = "<div class='col-xs-1 text-center' id='cell".$cellIdNum."' ng-click='loadWords(\$event)' value='{{page1".$cellIdNum."}}' data='{{page1Data".$cellIdNum."}}' style='border:2px solid black;'> \n"
-															  	. "<img class='img-responsive center-block' src='{{page1Image".$cellIdNum."}}' alt='{{page1".$cellIdNum."}}'/> \n"
-															  	. "<h4>{{page1".$cellIdNum."}}</h4> \n"
+								$mainMenuArrayImage[$buttonNum] = "<div class='col-xs-1 text-center' id='cell".$cellIdNum."' ng-click='loadWords(\$event)' value='{{page1id".$cellIdNum."}}' data='{{page1Data".$cellIdNum."}}' style='border:2px solid black;'> \n"
+															  	. "<img class='img-responsive center-block' src='{{page1Image".$cellIdNum."}}' alt='{{page1id".$cellIdNum."}}'/> \n"
+															  	. "<h4>{{page1id".$cellIdNum."}}</h4> \n"
 															  	. "</div> \n";
 							
 								//Select words associated with the currently selected group
@@ -160,14 +160,14 @@
 										$phraseImage = $row["Image"];
 									
 										//Print select variables into AngualarJS, based on sub menu button position $j
-										print '$scope.page'.$pageUse.''.$subCellIdNum.' =  "'.$phraseName.'";';
+										print '$scope.page'.$pageUse.'id'.$subCellIdNum.' =  "'.$phraseName.'";';
 										print '$scope.page'.$pageUse.'Data'.$subCellIdNum.'= "'.$phrase.'";';
 									
 										print '$scope.page'.$pageUse.'Image'.$subCellIdNum.' = "'.$phraseImage.'";';
 										
-										$subMenuArrayImage[$buttonSubNum] = "<div class='col-xs-1 text-center' id='cell".$cellIdNum."' ng-click='loadWords(\$event)' value='{{page".$pageUse."".$subCellIdNum."}}' data='{{page".$pageUse."Data".$subCellIdNum."}}'> \n" 
-																		  . "<img class='img-responsive center-block' src='{{page".$pageUse."Image".$subCellIdNum."}}' alt='{{page".$pageUse."".$subCellIdNum."}}'/> \n" 
-																		  . "<h4>{{page".$pageUse."".$subCellIdNum."}}</h4> \n"
+										$subMenuArrayImage[$buttonSubNum] = "<div class='col-xs-1 text-center' id='cell".$cellIdNum."' ng-click='loadWords(\$event)' value='{{page".$pageUse."id".$subCellIdNum."}}' data='{{page".$pageUse."Data".$subCellIdNum."}}'> \n" 
+																		  . "<img class='img-responsive center-block' src='{{page".$pageUse."Image".$subCellIdNum."}}' alt='{{page".$pageUse."id".$subCellIdNum."}}'/> \n" 
+																		  . "<h4>{{page".$pageUse."id".$subCellIdNum."}}</h4> \n"
 																		  . "</div> \n";	
 										//Increment button used
 										$subCellIdNum++;
