@@ -1,15 +1,19 @@
 <?php
 	error_reporting(E_ERROR); //Turn off PHP error reporting
-	$con = mysqli_connect("188.121.44.165","AssistedSpeak","a55!sT3D","AssistedSpeak"); //Connection string
-	
-	if(isset($_POST['LogOut'])) {
-		setcookie("LoggedIn", "", time() - 3600);
-		header("Location: ../Main/Default.php");
-	}
 	
 	if (!isset($_COOKIE["LoggedIn"])) {
 		header("Location: ../Main/Login.php");
 	}
+	
+	include '../CodeBehind/database.php';
+	include '../CodeBehind/logout.php';
+	
+	$con = db_connect_mysqli();
+	
+	if(isset($_POST['LogOut'])) {
+		log_out();
+	}
+	
 ?>
 
 <html manifest="../cache.manifest">

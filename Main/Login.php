@@ -1,8 +1,11 @@
 <?php
 	session_start();
-	$pdo = new PDO('mysql:host=188.121.44.165;dbname=AssistedSpeak','AssistedSpeak','a55!sT3D');
+	include '../CodeBehind/database.php';
+	
+	$pdo = db_connect_pdo();
 	$error = "";
-if(isset($_POST['submit'])) {
+	
+	if(isset($_POST['submit'])) {
 		$username		= $_POST['username'];
 		$password 		= $_POST['password'];
 		
