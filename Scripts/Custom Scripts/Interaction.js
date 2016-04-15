@@ -113,12 +113,43 @@
 		}
 		else if (applicationSettings.interaction == "rowScanning") {
 			setTimeout(function () {
+				var rowsValue = document.getElementById("wordArea1").getElementsByTagName("div").length / 12;
+				var numberOfRows = Math.ceil(rowsValue);
+				
+				if (keyPressed == false) {
+					if (i == numberOfRows + 1) {
+						document.getElementById(j).style.backgroundColor = "transparent";
+						i = 1;
+						j = 0;
+					}
+				
+					document.getElementById(i).style.backgroundColor = "blue";
+					
+					if(j != 0) {
+						document.getElementById(j).style.backgroundColor = "transparent";
+					}
+					
+					i++;					
+					j++;
+					
+					
+					mainLoop();
+				} else {
+					keyPressed = true;
+					
+					i = 1;
+					j = 0;
+					
+					
+				}
+				
 				
 			}, applicationSettings.scanningSpeed)
 		} 
 		else if (applicationSettings.interaction == "touch") {
 			if (cell != "") {
-				document.getElementById(cell).style.backgroundColor = "transparent";
+				apply_scanning_color(cell, "Transparent"); 
+				document.getElementById(j).style.backgroundColor = "transparent";
 				i = 1;
 				j = 0;
 			}

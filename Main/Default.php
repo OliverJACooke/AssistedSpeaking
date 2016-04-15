@@ -634,12 +634,18 @@
 							$newWordArea .= "' style='display:none'>";
 						}
 						
-						$newWordArea .= "<div class='row'> \n";
+						$newWordArea .= "<div class='row' id='1'> \n";
 						
 						return $newWordArea;
 					}
 				
-					$newRow = "</div> \n <div class='row'> \n";
+					function new_row($rowNo) {
+						$newRow = "</div> \n <div class='row' id='".$rowNo."'> \n";
+						
+						return $newRow;
+					}
+					
+					
 					$closeWordArea = "</div> \n </div> \n";
 					
 					$cellNo = count($mainMenuArrayImage);
@@ -648,9 +654,11 @@
 					
 					print new_word_area(1, "main");
 					
+					$rowTrack = 1;
 					for($i = 0; $i < $cellNo; $i++) {
 						if (($i != 0) && ($i % 12 == 0)) {
-							print $newRow;
+							$rowTrack++;
+							print new_row($rowTrack);
 						}
 						print $mainMenuArrayImage[$i];
 					}
@@ -659,11 +667,12 @@
 					$selectedSubButton = 0;
 					for($i = 0; $i < $tableNo; $i++) {
 						print new_word_area(($i+2), "sub");
-						
+						$rowTrack = 1;
 						for($j = 1; $j < $subMenuWordImageTotal[$i]; $j++) {
 							print 	$subMenuArrayImage[$selectedSubButton];
 							if ($j % 12 == 0) {
-								print $newRow;
+								$rowTrack++;
+								print new_row($rowTrack);
 							}
 							
 							$selectedSubButton++;
