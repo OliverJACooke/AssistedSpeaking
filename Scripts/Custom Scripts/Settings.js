@@ -1,7 +1,7 @@
 		// Global settings object	
 			var applicationSettings = {
 				themeColour: "Standard",
-				backgroundColour: "Standard",
+				backgroundColour: "White",
 				scanningColour: "Blue",
 				interaction: "Touch",
 				scanningSpeed: 1000,
