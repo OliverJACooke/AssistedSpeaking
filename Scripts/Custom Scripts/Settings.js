@@ -135,12 +135,15 @@
 				switch (interactionToUse) {
 					case "singleScanning":
 						applicationSettings.interaction = "singleScanning";
+						document.getElementById("touchDisabled").style.display = "block";
 						break;
 					case "rowScanning":
 						applicationSettings.interaction = "rowScanning";
+						document.getElementById("touchDisabled").style.display = "block";
 						break;
 					case "touch":
 						applicationSettings.interaction = "touch";
+						document.getElementById("touchDisabled").style.display = "none";
 						break;
 				}
 				
@@ -197,8 +200,3 @@
 						break;
 				}
 			}
-			
-//Single Step Scanning
-				
-
-//Row scanning

@@ -619,9 +619,9 @@
 					</div>
 			</div>
 		</div>
-		<!--<div class="touchDisabled">
+		<div id="touchDisabled" onclick="onTouchDisabledClick()">
 		
-		</div>-->
+		</div>
 			<div ID="wordAreaContainer" class="container-fluid">
 				<?php
 					function new_word_area($i,$category) {

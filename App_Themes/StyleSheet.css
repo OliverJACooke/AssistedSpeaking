@@ -25,7 +25,7 @@ img {
 	pointer-events:none;
 }
 
-.touchDisabled {
+#touchDisabled {
 	height:77%; 
 	width:100%; 
 	background-color:transparent;
