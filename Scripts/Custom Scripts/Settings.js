@@ -133,14 +133,18 @@
 				var interactionToUse = document.getElementById("interactionMethod").value;
 				
 				switch (interactionToUse) {
-					case "Scanning":
-						applicationSettings.interaction = "Scanning";
-						mainLoop();
+					case "singleScanning":
+						applicationSettings.interaction = "singleScanning";
 						break;
-					case "Touch":
-						applicationSettings.interaction = "Touch";
+					case "rowScanning":
+						applicationSettings.interaction = "rowScanning";
+						break;
+					case "touch":
+						applicationSettings.interaction = "touch";
 						break;
 				}
+				
+				mainLoop();
 			}
 			
 		// --- Change scanning speed ---
@@ -195,19 +199,6 @@
 			}
 			
 //Single Step Scanning
-			
-			document.body.onkeyup = function(e){
-				if (applicationSettings.interaction == "Scanning") {
-					if(e.keyCode == 32) {
-						keyPressed = true;  
-					}
-					else {
-						keyPressed = false;
-					}   
-				}
-			
-				if(e.keyCode == 13) {
-					 angular.element(document.getElementById('speechButton')).scope().DataWords();
-				}
-			}
+				
+
 //Row scanning

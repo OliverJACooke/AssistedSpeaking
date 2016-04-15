@@ -1,5 +1,5 @@
 <?php
-	error_reporting(E_ERROR); //Turn off PHP error reporting
+	//Nerror_reporting(E_ERROR); //Turn off PHP error reporting
 	
 	if (!isset($_COOKIE["LoggedIn"])) {
 		header("Location: ../Main/Login.php");
@@ -101,7 +101,7 @@
 								print '$scope.page1Data'.$cellIdNum.' = "'.$mainPhrase.'";';
 								print '$scope.page1Image'.$cellIdNum.' = "'.$phraseImage.'";';
 							
-								$mainMenuArrayImage[$buttonNum] = "<div class='col-xs-1' id='cell".$cellIdNum."' ng-click='loadWords(\$event)' value='{{page1id".$cellIdNum."}}' data='{{page1Data".$cellIdNum."}}'> \n"
+								$mainMenuArrayImage[$buttonNum] = "<div class='col-xs-1 text-center' id='cell".$cellIdNum."' ng-click='loadWords(\$event)' value='{{page1id".$cellIdNum."}}' data='{{page1Data".$cellIdNum."}}'> \n"
 																. "<img class='img-responsive center-block' src='{{page1Image".$cellIdNum."}}' alt='{{page1id".$cellIdNum."}}'/> \n" 
 																. "<h4>{{page1id".$cellIdNum."}}</h4> \n"
 																. "</div> \n";
@@ -486,8 +486,9 @@
 					</div>
 					<div class="rightSplit">
 						<select id="interactionMethod">
-							<option value="Touch">Touch</option>
-							<option value="Scanning">Scanning</option>
+							<option value="touch">Touch</option>
+							<option value="singleScanning">Single Scanning</option>
+							<option value="rowScanning">Row Scanning</option>
 						</select>
 					</div>
 					<div class="leftSplit">
@@ -677,30 +678,36 @@
 			
 			var mainButtons = <?php print count($mainMenuArrayImage);?>;
 			var totalMainPhrase = <?php print (count($mainMenuArrayImage) - count($subMenuWordImageTotal) + 1) ?>;
-			var mainMenuIDs = [];
 			
 			// prints javascript switch that stores the bottom and top IDs of each word
 			function selectedSubMenu(mainSelectedSubMenu){
 			<?php 
 				$runningTopTotal = 0;
 				$runningBottomTotal = 0;
-				$mainButtons = (count($mainMenuArrayImage) - count($subMenuWordImageTotal) + 1);
-				$mainMenuID = []; 
+				$buttonTotal = (count($mainMenuArrayImage) - count($subMenuWordImageTotal) + 1);
+				$arrayDecleration = "var mainMenuIDs = [0,";
+				
 				print count($subMenuWordImageTotal);
 				print "\n switch(mainSelectedSubMenu) { ";
 				
 				$j = 0;
 				for ($i = 1; $i <= (count($mainMenuArrayImage) + 1); $i++) {
-					if ($mainButtons == 0) {
+					if ($buttonTotal == 0) {
+						
 						$runningTopTotal = $runningTopTotal + $subMenuWordImageTotal[$j];
-						$runningBottomTotal = $runningBottomTotal + $subMenuWordImageTotal[$j - 1];
+						
+						if ($j != 0) {
+							$runningBottomTotal = $runningBottomTotal + $subMenuWordImageTotal[$j - 1];
+						} else {
+							$runningBottomTotal++;
+						}
 						
 						print "\n case ".$i.": ";
 						print "\n bottomOfMenu = ".$runningBottomTotal.";";
 						print "\n topOfMenu = ".$runningTopTotal."; ";
 						print "\n break; ";
-						$j++;
 						
+						$j++;
 					}
 					else {
 						$runningTopTotal++;
@@ -711,24 +718,26 @@
 						print "\n topOfMenu = ".$runningTopTotal."; ";
 						print "\n break; ";
 				
-						$mainButtons--;
+						$buttonTotal--;
 					}
 			
-					$mainMenuID[$i] = $runningTopTotal;
+					$arrayDecleration .= $runningTopTotal . ",";
 				}
 				print "} ";
+				
+				
 			?>
 			}
 	
 			<?php	
 				//Puts the value of each cell ID into a javascript array
-				for($i = 1; $i <= count($mainMenuID); $i++) {
-					print "\n mainMenuIDs[".$i."] = ".$mainMenuID[$i]."; ";
-				}
+				$arrayDecleration = substr($arrayDecleration, 0, -1);
+				print $arrayDecleration . "];";
 			?>	
 			
+			
 		</script>
+		<script src="../Scripts/Custom Scripts/Interaction.js"></script>
 		<script src="../Scripts/Custom Scripts/Settings.js"> </script>
-		<script src="../Scripts/Custom Scripts/Single Step Scanning.js"></script>
 	</body>
 </html>
