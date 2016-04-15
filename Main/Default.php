@@ -101,7 +101,7 @@
 								print '$scope.page1Data'.$cellIdNum.' = "'.$mainPhrase.'";';
 								print '$scope.page1Image'.$cellIdNum.' = "'.$phraseImage.'";';
 							
-								$mainMenuArrayImage[$buttonNum] = "<div class='col-xs-1 text-center' id='cell".$cellIdNum."' ng-click='loadWords(\$event)' value='{{page1id".$cellIdNum."}}' data='{{page1Data".$cellIdNum."}}'> \n"
+								$mainMenuArrayImage[$buttonNum] = "<div class='col-xs-1' id='cell".$cellIdNum."' ng-click='loadWords(\$event)' value='{{page1id".$cellIdNum."}}' data='{{page1Data".$cellIdNum."}}'> \n"
 																. "<img class='img-responsive center-block' src='{{page1Image".$cellIdNum."}}' alt='{{page1id".$cellIdNum."}}'/> \n" 
 																. "<h4>{{page1id".$cellIdNum."}}</h4> \n"
 																. "</div> \n";
@@ -618,7 +618,10 @@
 					</div>
 			</div>
 		</div>
-		<div ID="wordAreaContainer" class="container-fluid">
+		<!--<div class="touchDisabled">
+		
+		</div>-->
+			<div ID="wordAreaContainer" class="container-fluid">
 				<?php
 					function new_word_area($i,$category) {
 						$newWordArea = "\n <div ID='wordArea".$i."'";
@@ -668,8 +671,7 @@
 						print $closeWordArea;
 					}
 				?>
-				
-		</div>
+			</div>
 		<script>
 			//--- Table 1 Point Scanning ---
 			

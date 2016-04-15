@@ -18,7 +18,7 @@
 					setTimeout(function () {
 		
 						cell = "cell" + mainMenuIDs[k];	
-						previousCell = "cell" + mainMenuIDs[l];
+						previousCell = "cell" + mainMenuIDs[l]; 
 			
 						if (keyPressed == false) {		
 							document.getElementById(cell).style.backgroundColor = applicationSettings.scanningColour;
