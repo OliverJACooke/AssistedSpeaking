@@ -16,7 +16,7 @@
 	
 ?>
 
-<html> <!-- manifest="../cache.manifest"> -->
+<html manifest="http://localhost/assistedspeaking/cache.appcache">
 	<head>
 		<meta charset="utf-8">
   		<meta name="viewport" content="width=device-width, initial-scale=1">
