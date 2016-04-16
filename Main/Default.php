@@ -43,6 +43,8 @@
 					{display : "Push and Select to Talk", setting : "pushSelectTalk"}
 				];
 			
+				$scope.lastSpoken = "";
+				
 				// -- Clear speech bar ---
 				$scope.deleteWords = function () {
 						$scope.choice10 = "";
@@ -318,6 +320,10 @@
 					}  
 				}
 	// --- Read speech bar ---
+				$scope.Respeech = function () {
+					responsiveVoice.speak($scope.lastSpoken, applicationSettings.speechType, {volume: applicationSettings.applicationVolume});
+				}
+				
 				$scope.DataWords = function () {
 					//Read all the values in the speech bar
 					word1 = $scope.choice1Data;
@@ -368,7 +374,9 @@
 					if (word10 == null) {
 						word10 = " ";
 					}
-					responsiveVoice.speak((word1 + " " + word2 + " " + word3 + " " + word4 + " " + word5 + " " + word6 + " " + word7 + " " + word8 + " " + word9 + " " + word10), applicationSettings.speechType, {volume: applicationSettings.applicationVolume});
+					$scope.lastSpoken = (word1 + " " + word2 + " " + word3 + " " + word4 + " " + word5 + " " + word6 + " " + word7 + " " + word8 + " " + word9 + " " + word10);
+					
+					responsiveVoice.speak($scope.lastSpoken, applicationSettings.speechType, {volume: applicationSettings.applicationVolume});
 					
 					$scope.deleteWords();
 				}        
@@ -606,17 +614,15 @@
 						{{choice9}}
 					</h3>
 				</div>
-				<div class="col-xs-1">
-					<h3 id="choice10">
-						{{choice10}}
-					</h3>
+				<div id="speechButton" class="col-xs-1" ng-click="DataWords()">
+					<input class="img-responsive" type="image" src="../Images/speak.png"  />
 				</div>
-					<div id="speechButton" class="col-xs-1" ng-click="DataWords()">
-						<input class="img-responsive" type="image" src="../Images/speak.png"  />
-					</div>
-					<div class="col-xs-1" ng-click="deleteWords()" >
-						<input class="img-responsive" type="image" src="../Images/back.png" />
-					</div>
+				<div class="col-xs-1" ng-click="deleteWords()" >
+					<input class="img-responsive" type="image" src="../Images/back.png" />
+				</div>
+				<div id="respeechButton" class="col-xs-1" ng-click="Respeech()">
+					<input class="img-responsive" type="image" src="../Images/re.png"  />
+				</div>
 			</div>
 		</div>
 		<div id="touchDisabled" onclick="onTouchDisabledClick()">
