@@ -132,7 +132,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Words</title>
+    <title>Update Word Bank</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
 </head>
@@ -161,12 +161,12 @@
 		</div>
 	</nav>
 	<div class="container">
-	<h1>
+	<h1><b>
 		New Words/New Categories
-	</h1>
+	</b></h1><hr><hr>
 	<p>
 		<em>
-		Use this page to add brand new words to a currently existing group, or create brand new categories to your account.
+		From this page you can add or delete new words and word categories from the Word Bank.
 		</em>
 	</p>
         <form role="form" action="../Main/UpdateWordBank.php" method="post">
@@ -182,12 +182,12 @@
 			</div>
 			<div class="form-group">
 				<label for="Category">Category</label>
-				<p>Specify the category to select. Entering "Core" will select the core words category. If the selected category does not exist then it will be created.</p>
+				<p>Specify the category to select. Entering <i>core</i> will select the core words category, and add or delete the word from the main Word Bank. If the selected category does not exist then it will be created.</p>
 				<input class="form-control" type="text" name="category" id="category"/>
 			</div>
 			<div class="form-group">
 				<label for="Word">Word</label>
-				<p>Specify a word to add to the selected category. This word will be appear under the newly created button</p>
+				<p>Specify a word to add or delete from the selected category.</p>
 				<input class="form-control" type="text" name="word" id="word"/>
 			</div>
 			<div class="form-group">
@@ -197,7 +197,7 @@
 			</div>
 			<div class="form-group">
 				<label for="Image Name">Image Name</label>
-				<p>Image name, with no spaces. If no value is provided then the image will default to a cross symbol.</p>
+				<p>Image name, with no spaces. If no value is provided, or the image can not be located, then the image will default to a cross symbol.</p>
 				<input class="form-control" type="text" name="image" id="image"/>
 			</div>
 			<input class="btn btn-default" type="submit" name="submit" value="submit">

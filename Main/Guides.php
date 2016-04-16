@@ -36,7 +36,7 @@
 		<h3>Navigation and Speech Bar</h3>
 
 		<p>At the top of the tool you'll see the navigation bar. From this bar you can access the Settings, as well as the Dashboard of the application, amongst other pages. Additional links may appear as the functionality the application increases, so watch this space for future updates!</p><br>
-		<p>The area below the naviagtion bar is the speech bar. Providing that the application is set to <i>Push to Talk</i>, each selected word will appear in this location to create a phrase. More information will be provided on configuration later in this guide.</p><br>
+		<p>The area below the navigation bar is the speech bar. Providing that the application is set to <i>Push to Talk</i>, each selected word will appear in this location to create a phrase. More information will be provided on configuration later in this guide.</p><br>
 		<img class="img-responsive" src="../images/nav_bar_example.png" alt="Navigation Bar"/><hr><hr>
 
 <h3>Speech Command, Deletion and Settings</h3>
@@ -55,7 +55,7 @@
 		<h2>Application Configuration and Adjustment</h2>
 		</p>YouSpeak provides you with a number of configuration options to adjust and change the application should you need to. We hope the application is suited to your needs, but we also realise that your needs may change and vary on a regular basis. Consequently, this section will detail some of the options available to customise your YouSpeak experience.</p><hr><hr>
 		<h3>Accessing the Settings Interface</h3>
-		<p>Firslty, before we analyse the available configuration options, let's look at where we can access the settings interface. Take a look at the top right of the main application page and you should see the following settings Cog Icon.</p>
+		<p>Firstly, before we analyse the available configuration options, let's look at where we can access the settings interface. Take a look at the top right of the main application page and you should see the following settings Cog Icon.</p>
 		
 		<img class="img-responsive" src="../images/settings_icon.png" alt="Settings Cog Icon"/><br>
 		<p>Try clicking, or tapping, the Cog Icon to open the Settings Interface.</p><hr><hr>
@@ -101,7 +101,12 @@
 		<p>This option allows you to set the voice type used by YouSpeak when talking. There are a number of options available, with more due to be added in the future.</p><br>
 
 		<h4>Volume</h4>
-		<p>The final option of the <i>Speech and Interaction</i> column allow you to adjust the speech volume of YouSpeak.</p><br><hr><hr>
+		<p>The final option of the <i>Speech and Interaction</i> column allows you to adjust the speech volume of YouSpeak.</p><hr><hr>
+
+		<h2>Additional and Advanced Configuration</h2>
+		<p>For additional and more advanced configuration, you are able to add and delete words and word categories from the Word Bank. Whilst we feel the complete Word Bank will provide you with all of the words you need to speak each day, the option to add or delete Word Bank entries will allow for verbose configuration. To do this, select the <i>New Words</i> option witin the Dashboard area, as shown below, and follow the instructions within that page</p><br>
+
+		<img class="img-responsive" src="../images/new_words_option.png" alt="New Words Option"/><br><hr><hr>
 
 	</div>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
