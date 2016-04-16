@@ -22,10 +22,10 @@
   		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<script src="../Scripts/ResponsiveVoice.js"></script> <!-- Text to Speech JS-->
 		<script src="../Scripts/AngularJS.js"></script> <!-- AngularJS-->
-		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+		<link rel="stylesheet" href="../App_Themes/bootstrap.min.css">
 		<link href="../App_Themes/StyleSheet.css" rel="stylesheet" /> <!-- Custom Style Sheet-->
-  		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-  		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  		<script src="../Scripts/jquery-1.12.3.min.js"></script>
+  		<script src="../Scripts/bootstrap.min.js"></script>
 		<title>Assisted Speaking</title>
 	
 		<script>
