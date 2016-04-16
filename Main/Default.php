@@ -617,11 +617,11 @@
 				<div id="speechButton" class="col-xs-1" ng-click="DataWords()">
 					<input class="img-responsive" type="image" src="../Images/speak.png"  />
 				</div>
-				<div class="col-xs-1" ng-click="deleteWords()" >
-					<input class="img-responsive" type="image" src="../Images/back.png" />
-				</div>
 				<div id="respeechButton" class="col-xs-1" ng-click="Respeech()">
 					<input class="img-responsive" type="image" src="../Images/re.png"  />
+				</div>
+				<div class="col-xs-1" ng-click="deleteWords()" >
+					<input class="img-responsive" type="image" src="../Images/back.png" />
 				</div>
 			</div>
 		</div>
