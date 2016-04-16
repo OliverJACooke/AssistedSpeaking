@@ -76,7 +76,7 @@
 						$subMenuWordImageTotal = array();
 						
 						//Selects words that are to be displayed on the main page
-						$selectMainWords="SELECT WordID, PhraseName, Phrase, Image FROM Words WHERE GroupID=0";
+						$selectMainWords="SELECT WordID, PhraseName, Phrase, Image FROM Words WHERE GroupID=0 ORDER BY `WordID`";
 						$mainWordsResults = mysqli_query($con, $selectMainWords);
 						
 						$cellIdNum = 0;
