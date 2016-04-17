@@ -21,6 +21,9 @@ h4 {
 	font-size:1em;
 }	
 
+p {
+	font-size:0.8em;
+}
 img {
 	pointer-events:none;
 }
@@ -122,20 +125,20 @@ box-shadow: 0px 0px 21px 0px rgba(0,0,0,0.75);
 
 .leftSplit {
 	width:40%;
-	height:15%;
+	height:12.5%;
 	float:left;
 }
 
 .rightSplit {
 	width:60%;
-	height:15%;
+	height:12.5%;
 	float:left;
 }
 
 .rightSplit select{
 	width:90%;
-	height:90%;
-	font-size:2em;
+	height:70%;
+	font-size:1.6em;
 }
 
 .headerPadding {
