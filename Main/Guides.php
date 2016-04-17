@@ -1,6 +1,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Guides DashBoard</title>
+    <title>Guides</title>
 	<link rel="stylesheet" href="../App_Themes/bootstrap.min.css">
 	<script src="../Scripts/jquery-1.12.3.min.js"></script>
   	<script src="../Scripts/bootstrap.min.js"></script>
@@ -24,6 +24,7 @@
 					<li><a href="../Main/Dashboard.php">Dashboard</a></li>
 					<li class="active"><a href="../Main/Guides.php">Guides</a></li>
 					<li><a href="../Main/UpdateWordBank.php">New Words</a></li>
+					<li><a href="../Main/Contact.php">Contact</a></li>
 					<li><a href="../Main/CodeBehind.php">Logout</a></li>
 				</ul>
 			</div>

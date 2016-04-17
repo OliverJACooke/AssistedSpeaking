@@ -8,50 +8,51 @@
 
 	function create_new_category($con, $image, $category){
 		// Function to create a new category
+		
+		// Define full image path
+		$full_image_path = "../Images/WordImages/" . $image . ".png"; 
+
 		$sql = "INSERT INTO WordGroup
 				(GroupName,
 				Image)
 					VALUES (
-				'".$category."', 
-				'../Images/WordImages/".$image.".png')";
+				:groupname, 
+				:full_image_path)";
 
 		// Attempt new category creation
-		run_sql_query($con, $sql);
+		$query = $con->prepare($sql);
+		$query->execute(array(":groupname"=>$category,":full_image_path"=>$full_image_path));
 
-	}
 
-	function run_sql_query($con, $sql){
-		// Function to run the provided SQL query
-		if (mysqli_query($con, $sql)) {
-    			//echo "New record created successfully";
-		} else {
-    			echo "Error: " . $sql . "<br>" . mysqli_error($con);
-		}
-		//mysqli_close($con);
 	}
 
 	function get_category_id($con, $image, $category){
 		// Function to get the category id corresponding to the category name
-		$sql = "SELECT GroupID from WordGroup WHERE GroupName = '" . $category . "'";
+		//$sql = "SELECT GroupID from WordGroup WHERE GroupName = '" . $category . "'";
+		$sql = "SELECT GroupID from WordGroup WHERE GroupName=:groupname";
 
 		// Run query and fetch category id if category exists
-		$result = $con->query($sql);
-		if ($result->num_rows > 0){
-			$row = $result->fetch_assoc();
-			$category_id = $row["GroupID"];
+		$query = $con->prepare($sql);
+		$query->execute(array(":groupname"=>$category));
+		$results = $query->fetchAll();
+
+		if ($results != False && $query->rowCount() > 0){
+			$category_id = $results[0][0];
 			return $category_id;
-		// Otherwise Create the category and get the id
 		} else {
 			create_new_category($con, $image, $category);
 			$category_id = get_category_id($con, $image, $category);
 			return $category_id;
 		}
+
+
 	}
 
 	//////////// MAIN CODE START ////////////
 
 	// Call db connection
-	$con = db_connect_mysqli();
+	//$con = db_connect_mysqli();
+	$con = db_connect_pdo();
 			
 	if(isset($_POST['submit'])) {
 		$word = $_POST['word'];
@@ -82,39 +83,51 @@
 			// If user specified a category and selected "add"
 			if ($action == "add" && $word != "") {
 
+				// Define full image path
+				$full_image_path = "../Images/WordImages/" . $image . ".png"; 
+
 				$sql = "INSERT INTO Words 
 						(GroupID,
 						PhraseName,
 						Phrase,
 						Image)
 					VALUES (
-						'".$category_id."',
-						'".$word."', 
-						'".$phrase."',
-						'../Images/WordImages/".$image.".png')";
+						:groupid,
+						:phrasename, 
+						:phrase,
+						:full_image_path)";
 
 
-				// Call query function
-				run_sql_query($con, $sql);
+
+				// Attempt word addition
+				$query = $con->prepare($sql);
+				$query->execute(array(":groupid"=>$category_id,":phrasename"=>$word,":phrase"=>$phrase,":full_image_path"=>$full_image_path));
+
 			
 			// If user specified a category and selected "delete"
 			} elseif ($action == "delete") {
 
 				// Check if a word was also provided, and only delete the specified word if so
 				if ($word != "") {
-					$sql = "DELETE FROM Words WHERE PhraseName = '".$word."' and GroupID = '".$category_id."'";
+					$sql = "DELETE FROM Words WHERE PhraseName =:phrasename and GroupID =:groupid";
 
-					// Run Query
-					run_sql_query($con, $sql);
+					// Attempt word deletion
+					$query = $con->prepare($sql);
+					$query->execute(array(":phrasename"=>$word,":groupid"=>$category_id));
+
 
 				// Otherwise delete category and all words
 				} else {
-					$sql_words_delete = "DELETE FROM Words WHERE GroupID = '".$category_id."'";
-					$sql_category_delete = "DELETE FROM WordGroup WHERE GroupID = '".$category_id."'";
+					$sql_words_delete = "DELETE FROM Words WHERE GroupID =:groupid";
+					$sql_category_delete = "DELETE FROM WordGroup WHERE GroupID =:groupid";
 
-					// Run delete queries
-					run_sql_query($con, $sql_words_delete);
-					run_sql_query($con, $sql_category_delete);
+					// Run word delete query
+					$query = $con->prepare($sql_words_delete);
+					$query->execute(array(":groupid"=>$category_id));
+
+					// Run category delete query
+					$query = $con->prepare($sql_category_delete);
+					$query->execute(array(":groupid"=>$category_id));
 					}
 
 
@@ -124,8 +137,6 @@
 	
 		}
 			
-		mysqli_close($con);
-		
 	}
 
 ?>
@@ -156,6 +167,7 @@
 					<li><a href="../Main/Dashboard.php">Dashboard</a></li>
 					<li><a href="../Main/Guides.php">Guides</a></li>
 					<li class="active"><a href="../Main/UpdateWordBank.php">New Words</a></li>
+					<li><a href="../Main/Contact.php">Contact</a></li>
 					<li><a href="../CodeBehind/Logout.php">Logout</a></li>
 				</ul>
 			</div>
