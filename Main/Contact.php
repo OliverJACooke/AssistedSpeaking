@@ -47,7 +47,7 @@
 		<div class="col-lg-4">
 			<h4><b>Oliver Cooke</b></h4>
 			<p><em>Senior Developer and Software Engineer</em></p>
-			<p>Email: b1038068@my.shu.ac.uk</p>
+			<p>Email: b1024866@my.shu.ac.uk</p>
 		</div>
 	</div><br><br>
 	<div class="row">
