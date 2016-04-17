@@ -30,13 +30,17 @@
 	</nav>
 	<div class="container">
 	<h1>
-		Dashboard
+		<b>Dashboard</b>
 	</h1>
 	<p>
 		<em>
-		Welcome To Your Dashboard!
-		</em>
+		Welcome To Your Dashboard. From here you can access News, Guides and Additional Configuration
+		</em><hr><hr>
 	</p>
+	<h3>News and Updates</h3>
+	<p>The following areas will be addressed in future updates and releases of YouSpeak:</p>
+	
+
 
 	</div>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
