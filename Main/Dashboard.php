@@ -65,6 +65,7 @@
 			<li>Image upload functionality for creation of new words and categories</li>
 			<li>Direct User Support contact</li>
 			<li>Text-to-Speech functionality</li>
+			<li>Full client-side functionality</li>
 		</ul><br>
 	
 		<p>In addition to the specified changes, it should be noted that additions and adjustments to the Word Bank will likely be performed in each release of YouSpeak. This will be in response to user behaviour and application usage, as well as specific user requests.</p>
