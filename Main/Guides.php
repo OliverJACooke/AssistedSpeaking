@@ -41,9 +41,9 @@
 		<p>The area below the navigation bar is the speech bar. Providing that the application is set to <i>Push to Talk</i>, each selected word will appear in this location to create a phrase. More information will be provided on configuration later in this guide.</p><br>
 		<img class="img-responsive" src="../images/nav_bar_example.png" alt="Navigation Bar"/><hr><hr>
 
-<h3>Speech Command, Deletion and Settings</h3>
+<h3>Speech Command, Replay, Deletion and Settings</h3>
 
-		<p>Towards the top right of the speech application page, you can see three icons. The topmost Cog icon provides access to the application settings, which will be discussed at a later point. Below this, two icons can be seen. The bin icon can be used to clear the speech bar of words, whilst the speech icon will speak the current phrase.<p><br>
+		<p>Towards the top right of the speech application page, you can see four icons. The topmost Cog icon provides access to the application settings, which will be discussed at a later point. Below this, three icons can be seen. The bin icon can be used to clear the speech bar of words, the speech icon will speak the current phrase, and the repeat icon can be used to repeat the previously spoken word or phrase.<p><br>
 		<img class="img-responsive" src="../images/speech_button_example.png" alt="Speech Area"/><hr><hr>
 
 		<h3>Word Bank</h3>
